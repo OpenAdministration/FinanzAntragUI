@@ -30,7 +30,7 @@ abstract class EscFunc
 
     protected function defaultEscapeFunction($val): string
     {
-        //default escape-funktion to use if nothing is
+        // default escape-funktion to use if nothing is
         if ($val === 'null' || empty($val)) {
             return '<i>keine Angabe</i>';
         }

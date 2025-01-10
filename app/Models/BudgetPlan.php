@@ -4,10 +4,15 @@ namespace App\Models;
 
 use App\Models\Enums\BudgetPlanState;
 use Carbon\Carbon;
+use Database\Factories\BudgetPlanFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\BudgetPlan
+ *
  * @property int $id
  * @property Carbon $start_date
  * @property Carbon $end_date
@@ -19,6 +24,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $parent_plan_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read int|null $budget_items_count
+ *
+ * @method static BudgetPlanFactory factory($count = null, $state = [])
+ * @method static Builder|BudgetPlan newModelQuery()
+ * @method static Builder|BudgetPlan newQuery()
+ * @method static Builder|BudgetPlan query()
+ *
+ * @mixin Eloquent
  */
 class BudgetPlan extends Model
 {
@@ -34,12 +47,10 @@ class BudgetPlan extends Model
     /**
      * @var array
      */
-    protected $fillable = ['start_date', 'end_date', 'resolution_date', 'approval_date', 'state', 'parent_plan'];
+    protected $fillable = ['resolution_date', 'approval_date', 'state', 'parent_plan'];
 
     protected $casts = [
         'state' => BudgetPlanState::class,
-        'start_date' => 'date',
-        'end_date' => 'date',
         'resolution_date' => 'date',
         'approval_date' => 'date',
 
@@ -48,5 +59,10 @@ class BudgetPlan extends Model
     public function budgetItems(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(BudgetItem::class);
+    }
+
+    public function fiscalYear(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(FiscalYear::class);
     }
 }

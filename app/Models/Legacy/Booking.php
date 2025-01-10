@@ -52,6 +52,8 @@ class Booking extends Model
      */
     protected $table = 'booking';
 
+    public $timestamps = false;
+
     /**
      * @var array
      */

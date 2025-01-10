@@ -173,7 +173,7 @@ class MenuRenderer extends Renderer
                     'projekt_id',  // group idx
                     'projekt_id',
                     'auslagen.id',
-                    'name_suffix', //auslagen Link
+                    'name_suffix', // auslagen Link
                     'zahlung-name', // Empf. Name
                     'einnahmen' => ['einnahmen', DBConnector::GROUP_SUM_ROUND2],
                     'ausgaben' => ['ausgaben', DBConnector::GROUP_SUM_ROUND2],
@@ -189,7 +189,7 @@ class MenuRenderer extends Renderer
             );
         }
 
-        //var_dump(end(end($projekte)));
+        // var_dump(end(end($projekte)));
         $this->setOverviewTabs($active); ?>
 
         <div class="panel-group" id="accordion">
@@ -317,7 +317,7 @@ class MenuRenderer extends Renderer
                                                                 $sum_a_out - $sum_a_in,
                                                                 2
                                                             ).'&nbsp€',
-                                                                ],
+                                                        ],
                                                     ]
                                                 ); ?>
                                                     </div>
@@ -515,9 +515,9 @@ class MenuRenderer extends Renderer
             // return ??
         };
 
-        //$this->renderAccordionPanels($test, $groupHeaderFun, $innerHeaderHeadlineFun, $innerHeaderFun, $innerContentFun);
+        // $this->renderAccordionPanels($test, $groupHeaderFun, $innerHeaderHeadlineFun, $innerHeaderFun, $innerContentFun);
         $this->renderAccordionPanels($extern_meta, $groupHeaderFun, $innerHeaderHeadlineFun, $innerHeaderFun, $innerContentFun);
-        //$this->renderTable($header,[$extern],array_keys($header));
+        // $this->renderTable($header,[$extern],array_keys($header));
     }
 
     public function setOverviewTabs($active): void
@@ -526,12 +526,12 @@ class MenuRenderer extends Renderer
         $tabs = [
             'mygremium' => "<i class='fa fa-fw fa-home'></i> Meine Gremien",
             'allgremium' => "<i class='fa fa-fw fa-globe'></i> Alle Gremien",
-            //"mystuff" => "<i class='fa fa-fw fa-user-o'></i> Meine Anträge",
+            // "mystuff" => "<i class='fa fa-fw fa-user-o'></i> Meine Anträge",
         ];
         if (AuthHandler::getInstance()->hasGroup('ref-finanzen')) {
-            //$tabs["extern"] = "<i class='fa fa-fw fa-ticket'></i> Externe Anträge";
+            // $tabs["extern"] = "<i class='fa fa-fw fa-ticket'></i> Externe Anträge";
         }
-        //$tabs["search"] = "<i class='fa fa-fw fa-search'></i> Suche";
+        // $tabs["search"] = "<i class='fa fa-fw fa-search'></i> Suche";
         HTMLPageRenderer::setTabs($tabs, $linkbase, $active);
     }
 
@@ -546,7 +546,7 @@ class MenuRenderer extends Renderer
         if (AuthHandler::getInstance()->hasGroup('ref-finanzen-kv')) {
             $tabs['kv/exportBank'] = "<i class='fa fa-fw fa-money'></i> Überweisungen";
         }
-        //$tabs["search"] = "<i class='fa fa-fw fa-search'></i> Suche";
+        // $tabs["search"] = "<i class='fa fa-fw fa-search'></i> Suche";
         HTMLPageRenderer::setTabs($tabs, $linkbase, $active);
     }
 
@@ -597,9 +597,9 @@ class MenuRenderer extends Renderer
 
     private function renderStuRaView(): void
     {
-        $header = ['Projekte', 'Organisation', 'Projektbeginn'/*"Einnahmen", "Ausgaben"*/];
+        $header = ['Projekte', 'Organisation', 'Projektbeginn'/* "Einnahmen", "Ausgaben" */];
 
-        //TODO: also externe Anträge
+        // TODO: also externe Anträge
         // $groups[] = ["name" => "Externe Anträge", "fields" => ["type" => "extern-express", "state" => "need-stura",]];
         [$header, $internContent, $escapeFunctions] = $this->fetchProjectsWithState('need-stura');
         [, $internContentHV] = $this->fetchProjectsWithState('ok-by-hv');
@@ -647,16 +647,16 @@ class MenuRenderer extends Renderer
 
     private function renderHVView(): void
     {
-        //Projekte -------------------------------------------------------------------------------------------------
+        // Projekte -------------------------------------------------------------------------------------------------
         [$headerIntern, $internWIP, $escapeFunctionsIntern] = $this->fetchProjectsWithState('wip');
         $groupsIntern['zu prüfende Projekte'] = $internWIP;
 
-        //Auslagenerstattungen -------------------------------------------------------------------------------------
+        // Auslagenerstattungen -------------------------------------------------------------------------------------
         [$headerAuslagen, $auslagenWIP, $escapeFunctionsAuslagen] = $this->fetchAuslagenWithState('wip', 'hv');
         $groupsAuslagen['Sachliche Richtigkeit der Auslagen prüfen'] = $auslagenWIP;
 
-        //TODO: Implementierung vom rest
-        //$groups[] = ["name" => "Externe Projekte für StuRa Situng vorbereiten", "fields" => ["type" => "extern-express", "state" => "draft"]];
+        // TODO: Implementierung vom rest
+        // $groups[] = ["name" => "Externe Projekte für StuRa Situng vorbereiten", "fields" => ["type" => "extern-express", "state" => "draft"]];
 
         $this->setTodoTabs('hv');
         $this->renderTable($headerIntern, $groupsIntern, [], $escapeFunctionsIntern);
@@ -676,7 +676,7 @@ class MenuRenderer extends Renderer
             [
                 'projekte.id',
                 'createdat',
-                'name', //Projekte Link
+                'name', // Projekte Link
                 'projekte.id',
                 'auslagen.id',
                 'auslagen.name_suffix', // Auslagen Link
@@ -711,13 +711,13 @@ class MenuRenderer extends Renderer
 
     public function renderKVView(): void
     {
-        //Auslagenerstattungen
-        //$headerAuslagen = ["Projekt", "Erstattung", "Organisation", "zuletzt geändert"];
+        // Auslagenerstattungen
+        // $headerAuslagen = ["Projekt", "Erstattung", "Organisation", "zuletzt geändert"];
 
         [$headerAuslagen, $auslagenWIP, $escapeFunctionsAuslagen] = $this->fetchAuslagenWithState('wip', 'kv');
 
-        //TODO: Implementierung vom rest
-        //$groups[] = ["name" => "Externe Projekte für StuRa Situng vorbereiten", "fields" => ["type" => "extern-express", "state" => "draft"]];
+        // TODO: Implementierung vom rest
+        // $groups[] = ["name" => "Externe Projekte für StuRa Situng vorbereiten", "fields" => ["type" => "extern-express", "state" => "draft"]];
 
         $this->setTodoTabs('kv');
         $this->renderTable($headerAuslagen, ['Rechnerische Richtigkeit der Auslagen prüfen' => $auslagenWIP], [], $escapeFunctionsAuslagen);
@@ -751,7 +751,7 @@ class MenuRenderer extends Renderer
                 'auslagen.id',
                 'auslagen.zahlung-vwzk',
                 'auslagen.name_suffix',
-                'projekte.name', //verwendungszweck
+                'projekte.name', // verwendungszweck
                 'ausgaben' => ['beleg_posten.ausgaben', DBConnector::GROUP_SUM_ROUND2],
                 'einnahmen' => ['beleg_posten.einnahmen', DBConnector::GROUP_SUM_ROUND2],
             ],

@@ -8,6 +8,7 @@
     <link rel="icon" href="{{ asset('img/logo.svg') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @livewireScripts
+    @fluxStyles
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="h-full overflow-hidden">
@@ -255,5 +256,6 @@
         </div>
     </div>
 </div>
+@fluxScripts
 </body>
 </html>

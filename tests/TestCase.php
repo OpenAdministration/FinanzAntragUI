@@ -2,10 +2,9 @@
 
 namespace Tests;
 
-use App\Models\User;
-use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase
+class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 

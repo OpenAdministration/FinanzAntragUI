@@ -76,7 +76,7 @@ function htmlLogLine($text, $extra_empty = false, $bold = false, $extra_tab_spac
 $mh = MailHandler::getInstance();
 echo '<div class="box wrap">'."\n";
 echo '<div class="logging">'."\n";
-//run smtp test ----------------------------------
+// run smtp test ----------------------------------
 MailHandler::smtpdebug(function ($t, $e = false, $b = false, $s = 0) {
     htmlLogLine($t, $e, $b, $s);
 });

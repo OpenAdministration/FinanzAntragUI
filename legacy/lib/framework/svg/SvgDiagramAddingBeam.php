@@ -139,18 +139,18 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
         $yAchsisXPos = $this->settings['padding'] + $entryWidth;
         $yAchsisLength = $xAchsisYPos - $this->settings['padding'];
 
-        //generate x achsis
+        // generate x achsis
         $chartcontent .= $this->drawHLine(
             $xAchsisYPos,
             $entryWidth + $this->settings['padding'],
             $xAchsisLength);
-        //generate y achsis
+        // generate y achsis
         $chartcontent .= $this->drawVLine(
             $yAchsisXPos,
             $this->settings['padding'],
             $yAchsisLength);
 
-        //x Achsis description && get yMaxEntryVal
+        // x Achsis description && get yMaxEntryVal
         $i = 0;
         foreach ($this->dataset as $key => $set) {
             $chartcontent .= $this->drawText(
@@ -168,7 +168,7 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
                 null,
                 2);
             $i++;
-            //calculate y max value
+            // calculate y max value
             if (! $this->settings['ADDBLOCK']['interpret_date']) {
                 if (count($set) > 0) {
                     if (is_array(current($set))) {
@@ -197,7 +197,7 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
         }
 
         // ----------- calculate y achsis --------------------
-        //calculate scale
+        // calculate scale
         $numlength = strlen((string) intval($yMaxEntryVal));
         $yAchsisMax = 10 ** $numlength;
         $shrinkFlag = 0;
@@ -219,7 +219,7 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
         $yAchsisStep = $yAchsisMax / ($this->settings['BLOCK']['ySteps'] - $shrinkFlag);
         $yAchsisStepHeight = ($yAchsisLength) / ($this->settings['BLOCK']['ySteps'] - $shrinkFlag);
 
-        //draw step description
+        // draw step description
         for ($i = 0; $i < ($this->settings['BLOCK']['ySteps'] - $shrinkFlag); $i++) {
             $chartcontent .= $this->drawHLine(
                 $xAchsisYPos - $yAchsisStepHeight * ($i + 1),
@@ -247,7 +247,7 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
                 20);
         }
 
-        //draw achsis description
+        // draw achsis description
         if ($this->achsisDescription['x'] !== null) {
             $chartcontent .= $this->drawText(
                 $this->achsisDescription['x'],
@@ -272,7 +272,7 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
                 270);
         }
 
-        //draw Bars
+        // draw Bars
         $i = 0;
         foreach ($this->dataset as $key => $set) {
             $data = [];
@@ -312,7 +312,7 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
                     $colorpos++;
                 }
 
-                //x Achsis description - sub_x_description
+                // x Achsis description - sub_x_description
                 if ($this->settings['ADDBLOCK']['sub_x_description']) {
                     $chartcontent .= $this->drawText(
                         ''.$this->settings['ADDBLOCK']['sub_x_description_array'][$sub_key],
@@ -329,7 +329,7 @@ class SvgDiagramAddingBeam extends SvgDiagramBlock
             $i++;
         }
 
-        //daw explanation
+        // daw explanation
         if (count($this->explanation) > 0) {
             $i = 0;
             $y = $xAchsisYPos + $xFontOffset;

@@ -138,7 +138,7 @@ class SvgDiagramPie extends SvgDiagramCore
         $circleX_offset = 0;
         $circleY = 0;
         $radius = 0;
-        if (($this->settings['height'] > $this->settings['width'] * 2 / 3 && $this->forceExplanationRight == false) || ($this->forceExplanationBottom == true)) { //explanation below diagramm
+        if (($this->settings['height'] > $this->settings['width'] * 2 / 3 && $this->forceExplanationRight == false) || ($this->forceExplanationBottom == true)) { // explanation below diagramm
             $xAchsisYPos = $this->settings['height'] - $this->settings['padding'];
             if (count($this->dataset) > 0) {
                 $xAchsisYPos = $xAchsisYPos - ceil(count($this->dataset) / $this->settings['PIE']['perExplanationLineBelow']) * $this->settings['PIE']['explanationLineHeight'];
@@ -149,7 +149,7 @@ class SvgDiagramPie extends SvgDiagramCore
             $circleX = $xAchsisLength / 2 + $this->settings['padding'];
             $circleY = $yAchsisLength / 2 + $this->settings['padding'];
             $radius = min($xAchsisLength, $yAchsisLength) / 2 - $this->settings['PIE']['radiusOffset'];
-        } else { //explanation to the right of diagramm
+        } else { // explanation to the right of diagramm
             $xAchsisYPos = $this->settings['height'] - $this->settings['padding'];
             $xAchsisLength = $this->settings['width'] - 2 * $this->settings['padding'];
             $yAchsisLength = $xAchsisYPos - $this->settings['padding'];
@@ -161,14 +161,14 @@ class SvgDiagramPie extends SvgDiagramCore
             }
         }
 
-        //draw explanation and chart parts
+        // draw explanation and chart parts
         $lastX1 = $circleX - $circleX_offset;
         $lastY1 = $circleY - $radius;
         $i = 0;
         $winkel = 0;
         $y = 0;
         $x_width = 0;
-        if (($this->settings['height'] > $this->settings['width'] * 2 / 3 && $this->forceExplanationRight == false) || ($this->forceExplanationBottom == true)) { //explanation below diagramm
+        if (($this->settings['height'] > $this->settings['width'] * 2 / 3 && $this->forceExplanationRight == false) || ($this->forceExplanationBottom == true)) { // explanation below diagramm
             $y = $xAchsisYPos + $this->settings['PIE']['explanationLineHeight'];
             $x_width = ($this->settings['width'] - 2 * $this->settings['padding']) / $this->settings['PIE']['perExplanationLineBelow'];
         } else {
@@ -176,7 +176,7 @@ class SvgDiagramPie extends SvgDiagramCore
             $x_width = ($this->settings['width'] - ($circleX + $radius + $this->settings['PIE']['explanationLineHeight'])) / $this->settings['PIE']['perExplanationLineRight'];
         }
         foreach ($this->dataset as $leg => $set) {
-            //pie chart
+            // pie chart
             $part = $set[0] / $entrySum;
             $alphaDeg = (360 * $set[0]) / $entrySum;
             if ($set[0] == $entrySum) {
@@ -194,8 +194,8 @@ class SvgDiagramPie extends SvgDiagramCore
             $pathObj = '<path d="'.$d.'" fill="'.$this->colorMap[$i].'"'.(($this->settings['PIE']['drawStroke']) ? ' stroke="black" stroke-width="2"' : '').'>'.
                 '<title>'.$set[0].'</title></path>';
 
-            //daw explanation
-            if (($this->settings['height'] > $this->settings['width'] * 2 / 3 && $this->forceExplanationRight == false) || ($this->forceExplanationBottom == true)) { //explanation below diagramm
+            // daw explanation
+            if (($this->settings['height'] > $this->settings['width'] * 2 / 3 && $this->forceExplanationRight == false) || ($this->forceExplanationBottom == true)) { // explanation below diagramm
                 $yy = $y + ($this->settings['PIE']['explanationLineHeight'] * floor($i / $this->settings['PIE']['perExplanationLineBelow']));
                 $xx = $this->settings['padding'] + ($i % $this->settings['PIE']['perExplanationLineBelow']) * $x_width;
                 $pathObj .= $this->drawBar($xx, $yy + 5, $this->settings['PIE']['explanationLineHeight'], $this->settings['PIE']['explanationLineHeight'] - 10,

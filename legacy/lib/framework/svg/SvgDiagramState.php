@@ -91,7 +91,7 @@ class SvgDiagramState extends SvgDiagramCore
         $arrows = $this->settings['STATE']['arrows'];
 
         $boxes = [];
-        //collect information
+        // collect information
         $maxy = $this->settings['padding'];
         foreach ($this->dataset as $level) {
             $gridsize['y']++;
@@ -104,7 +104,7 @@ class SvgDiagramState extends SvgDiagramCore
                 $boxes[$e['state']]['data'] = $e;
                 $boxes[$e['state']]['x'] = $this->settings['padding'] + $pos * $margin['x'] + $pos * $boxsize['w'];
                 $boxes[$e['state']]['y'] = $current_y;
-                //offsets
+                // offsets
                 if (isset($e['offset']['x'])) {
                     $boxes[$e['state']]['x'] += $e['offset']['x'];
                 }
@@ -126,7 +126,7 @@ class SvgDiagramState extends SvgDiagramCore
                 $maxy = max($maxy, $current_y + $boxes[$e['state']]['h']);
                 $boxes[$e['state']]['in_pos'] = 0;
                 $boxes[$e['state']]['out_pos'] = 0;
-                //in counter
+                // in counter
                 foreach ($boxes[$e['state']]['out'] as $target) {
                     $outpos = null;
                     if (is_array($target)) {
@@ -151,7 +151,7 @@ class SvgDiagramState extends SvgDiagramCore
             }
             $boxelement = '';
             $childelements = [];
-            //draw boxes
+            // draw boxes
             $text = $b['options']['text'] ?? [];
             $text['text'] = $b['title'];
             $text['attr']['class'] = 'shape-text';
@@ -165,7 +165,7 @@ class SvgDiagramState extends SvgDiagramCore
                 $text, (count($b['children'])) ? -$b['h'] / 2 + $boxsize['h'] / 2 : 0,
                 $opt, null, $b['hovertitle']);
 
-            //draw children
+            // draw children
             $cpos = 0;
             foreach ($b['children'] as $child) {
                 $xx = $b['x'] + $childpadding;
@@ -191,7 +191,7 @@ class SvgDiagramState extends SvgDiagramCore
                 $cpos++;
             }
 
-            //draw arrows
+            // draw arrows
             foreach ($boxes[$s]['out'] as $next) {
                 $outpos = null;
                 $outoffset = ['x' => 0, 'y' => 0];
@@ -209,7 +209,7 @@ class SvgDiagramState extends SvgDiagramCore
                     $outpos = $next[1];
                     $next = $next[0];
                 }
-                //direct line
+                // direct line
                 if (! isset($boxes[$next]['x'])) {
                     continue;
                 }
@@ -232,11 +232,11 @@ class SvgDiagramState extends SvgDiagramCore
                     $boxelement .= $this->drawAutoBez($outpos_x, $outpos_y, $inpos_x, $inpos_y, 1, 'black');
                     $boxes[$s]['out_pos'] = $boxes[$s]['out_pos'] + 1;
                     $boxes[$next]['in_pos'] = $boxes[$next]['in_pos'] + 1;
-                    //triangle
+                    // triangle
                     if ($arrows) {
                         $boxelement .= $this->drawTriangle($inpos_x, $inpos_y, (($b['index'] < $boxes[$next]['index']) ? $arrowsize['h'] : -$arrowsize['h']), $arrowsize['a'], 0, 'black');
                     }
-                    //levelshift right side out
+                    // levelshift right side out
                 } elseif ($outpos == 1 || ($outpos == null && $b['index'] < $boxes[$next]['index'])) {
                     $outpos_y = (! $center_lines) ? $b['y'] + ($boxes[$s]['out_pos'] + 1) * $b['h'] / (count($b['out']) + 1)
                                 : $b['y'] + $b['h'] / 2;
@@ -246,25 +246,25 @@ class SvgDiagramState extends SvgDiagramCore
                                 : $boxes[$next]['y'] + $boxes[$next]['h'] / 2;
                     $outpos_x += $outoffset['x'];
                     $outpos_y += $outoffset['y'];
-                    //tmp
+                    // tmp
                     $boxelement .= $this->drawAutoBez($outpos_x, $outpos_y, $inpos_x, $inpos_y, 1, 'black');
                     $boxes[$s]['out_pos']++;
                     $boxes[$next]['in_pos']++;
 
-                    //line after levelshift
+                    // line after levelshift
                     if ($inpos_x != $boxes[$next]['x']) {
                         $boxelement .= $this->drawLine($inpos_x, $inpos_y, $boxes[$next]['x'], $inpos_y, 1, 'black');
-                        //triangle
+                        // triangle
                         if ($arrows) {
                             $boxelement .= $this->drawTriangle($boxes[$next]['x'], $inpos_y, $arrowsize['h'], $arrowsize['a'], 0, 'black');
                         }
                     } else {
-                        //triangle
+                        // triangle
                         if ($arrows) {
                             $boxelement .= $this->drawTriangle($inpos_x, $inpos_y, $arrowsize['h'], $arrowsize['a'], (($inpos_y < $outpos_y && ($outpos_y - $inpos_y) > $boxsize['h']) ? -15 : (($inpos_y > $outpos_y && ($inpos_y - $outpos_y) > $boxsize['h']) ? +15 : 0)), 'black');
                         }
                     }
-                    //arrows up down
+                    // arrows up down
                 } elseif ($outpos == 2 || ($outpos === null && $b['index'] == $boxes[$next]['index'])) {
                     $outpos_y = $b['y'] + (($b['level'] > $boxes[$next]['level']) ? 0 : $b['h']);
                     $inpos_y = $boxes[$next]['y'] + (($b['level'] > $boxes[$next]['level']) ? $boxes[$next]['h'] : 0);
@@ -272,7 +272,7 @@ class SvgDiagramState extends SvgDiagramCore
                     $inpos_x = $boxes[$next]['x'] + $boxes[$next]['w'] / 2;
                     $outpos_x += $outoffset['x'];
                     $outpos_y += $outoffset['y'];
-                    //tmp
+                    // tmp
                     $boxelement .= $this->drawAutoBez($outpos_x, $outpos_y, $inpos_x, $inpos_y, 1, 'black', null, 1);
                     $boxes[$s]['out_pos']++;
                     $boxes[$next]['in_pos']++;
@@ -298,7 +298,7 @@ class SvgDiagramState extends SvgDiagramCore
                     $inpos_x = $boxes[$next]['x'] + $boxes[$next]['w'] / 2;
 
                     if ($outpos_y < $boxes[$next]['y']) {
-                        //oben
+                        // oben
                         $inpos_y = $boxes[$next]['y'];
                         $outpos_x += $outoffset['x'];
                         $outpos_y += $outoffset['y'];
@@ -307,7 +307,7 @@ class SvgDiagramState extends SvgDiagramCore
                             $boxelement .= $this->drawTriangle($inpos_x, $inpos_y, $arrowsize['h'], $arrowsize['a'], 90, 'black');
                         }
                     } elseif ($outpos_y > $boxes[$next]['y'] + $boxes[$next]['h']) {
-                        //unten
+                        // unten
                         $inpos_y = $boxes[$next]['y'] + $boxes[$next]['h'];
                         $outpos_x += $outoffset['x'];
                         $outpos_y += $outoffset['y'];
@@ -334,10 +334,10 @@ class SvgDiagramState extends SvgDiagramCore
                     $inpos_x = $boxes[$next]['x'] + $boxes[$next]['w'] / 2;
                     $rotate = 90;
                     if ($outpos_y < $boxes[$next]['y']) {
-                        //oben
+                        // oben
                         $inpos_y = $boxes[$next]['y'];
                     } else {
-                        //unten
+                        // unten
                         $rotate = -90;
                         $inpos_y = $boxes[$next]['y'] + $boxes[$next]['h'];
                     }

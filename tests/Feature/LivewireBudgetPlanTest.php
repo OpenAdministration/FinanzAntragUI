@@ -11,20 +11,20 @@ class LivewireBudgetPlanTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->actingAs(User::factory()->create());
     }
 
-    public function testLivewireComponentRenders(): void
+    public function test_livewire_component_renders(): void
     {
         $this->loginAsUser();
         $create = $this->get('/plan/create');
         $create->assertRedirectToRoute('budget-plan.edit', ['plan_id' => 1]);
     }
 
-    public function testEditBudgetPlanMetaDataLivewire(): void
+    public function test_edit_budget_plan_meta_data_livewire(): void
     {
         \Livewire::test('budget-plan-livewire')
             ->set('plan.organisation', 'Test Organisation')

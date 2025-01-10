@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CONTROLLER FileHandler
  *
@@ -1000,10 +1001,10 @@ class FileHandler
     public function deleteFilesByLinkId($link)
     {
         $files = $this->db->getFilesByLinkId($link);
-        //delete from db
+        // delete from db
         $this->db->deleteFiledataByLinkId($link);
         $this->db->deleteFileinfoByLinkId($link);
-        //delete from harddisk
+        // delete from harddisk
         if (is_array($files)) {
             foreach ($files as $file) {
                 $path = self::getDiskpathOfFile($file);
@@ -1020,13 +1021,13 @@ class FileHandler
      */
     public function cleanupDirectories()
     {
-        //get all directory names
+        // get all directory names
         $base = self::getBaseDirPath();
         $files = array_diff(scandir($base), ['.', '..']);
         // get all link ids
         $links = $this->db->getAllFileLinkIds();
         $dirs = [];
-        //delete all directories not in links
+        // delete all directories not in links
         foreach ($files as $file) {
             if (is_dir("$base/$file") && ! in_array($file, $links, true)) {
                 self::delTree($base / $file);
@@ -1172,7 +1173,7 @@ class FileHandler
      */
     public function checkFileHash(string $hash): ?File
     {
-        //check hash only contains hey letters, length 64
+        // check hash only contains hey letters, length 64
         $re = '/^([0-9a-f]{64}|[0-9a-zA-Z]{40})$/m';
         if (! preg_match($re, $hash)) {
             return null;
@@ -1209,7 +1210,7 @@ class FileHandler
             return $result;
         }
 
-        //handle fileupload === CHECK FILES ===================================
+        // handle fileupload === CHECK FILES ===================================
         if (! isset($_POST['nofile']) && count($_FILES) > 0 &&
             isset($_FILES[$base_key]) &&
             isset($_FILES[$base_key]['error']) &&
@@ -1292,7 +1293,7 @@ class FileHandler
                     }
 
                     // hashname (replaced by laravel later)
-                    //$file->hashname = strtolower(generateRandomString(32));
+                    // $file->hashname = strtolower(generateRandomString(32));
 
                     // link
                     if (is_int($link)) {
@@ -1403,11 +1404,11 @@ class FileHandler
             // FILESYSTEM storage ---------------
             if (! $this->UPLOAD_TARGET_DATABASE) {
                 foreach ($result['fileinfo'] as $id => $file) {
-                    //$dir = self::getDirpathOfFile($file);
+                    // $dir = self::getDirpathOfFile($file);
                     // create directory if not extists
-                    //self::checkCreateDirectory($dir);
+                    // self::checkCreateDirectory($dir);
                     // upload file
-                    //$uploadfile = self::getDiskpathOfFile($file);
+                    // $uploadfile = self::getDiskpathOfFile($file);
 
                     // UPLOAD FILES Laravel Style
                     request()->validate([
@@ -1418,20 +1419,20 @@ class FileHandler
                     $lara_path = $lara_file->store('auslagen/'.$auslagen_id);
                     // get everything between last / and .pdf file extension
                     $file->hashname = substr($lara_path, strrpos($lara_path, '/') + 1, -4);
-                    //create file entry
+                    // create file entry
                     $file->id = $this->db->createFile($file);
                     $dberror = $this->db->isError();
-                    //create data entry
+                    // create data entry
                     if (! $dberror) {
                         $fdid = $this->db->createFileDataPath($lara_path);
                         $dberror = $this->db->isError();
                         $file->data = $fdid;
                     }
-                    //update link data
+                    // update link data
                     if (! $dberror) {
                         $dberror = ! $this->db->updateFile_DataId($file);
                     }
-                    //check for error
+                    // check for error
                     if ($dberror) {
                         Storage::delete($lara_path);
                         unset($result['fileinfo'][$id]);

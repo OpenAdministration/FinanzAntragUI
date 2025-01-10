@@ -39,7 +39,7 @@ class FormTemplater
             ],
             ['type' => false, 'haushaltsgruppen.id' => true, 'titel_nr' => true]);
         $selectable = [];
-        foreach ($all_titels as /*$g_id =>*/ $group) {
+        foreach ($all_titels as /* $g_id => */ $group) {
             $ret_group = [
                 'label' => ($group[0]['type'] ? 'Ausgabe' : 'Einnahme').' - '.$group[0]['gruppen_name'],
                 'options' => [],
@@ -49,10 +49,10 @@ class FormTemplater
                 $option['label'] = $titel['titel_name'];
                 $option['subtext'] = $titel['titel_nr'];
                 $option['value'] = $titel['id'];
-                //set in parent
+                // set in parent
                 $ret_group['options'][] = $option;
             }
-            //set in parent
+            // set in parent
             $selectable['groups'][] = $ret_group;
         }
 
@@ -94,7 +94,7 @@ class FormTemplater
             }
             $options[] = $opt;
         }
-        //only 1 group
+        // only 1 group
         $selectable['groups'][0]['options'] = $options;
 
         return $selectable;
@@ -293,7 +293,7 @@ class FormTemplater
         }
         $out .= $content;
         if (! empty($validator) && $editable) {
-            //$out .= "<span class='glyphicon form-control-feedback' aria-hidden='true'></span>";
+            // $out .= "<span class='glyphicon form-control-feedback' aria-hidden='true'></span>";
             $out .= "<div class='help-block with-errors'></div>";
         }
         $out .= '</div>';
@@ -467,7 +467,7 @@ class FormTemplater
                 $values = explode(';', $selectable['values']);
             }
         }
-        //var_dump($selectable);
+        // var_dump($selectable);
         if ($editable) {
             $additonal_array = $this->constructValidatorStrings($validator);
             $additonal_array[] = 'data-live-search='.($searchable ? "'true'" : "'false'");
@@ -493,7 +493,7 @@ class FormTemplater
             $out .= '</select>';
             $out .= '</div>';
         } else {
-            //re-substitute ids => names
+            // re-substitute ids => names
             $tmp_vals = []; // value => [label, subtext]
             foreach ($selectable['groups'] as $group) {
                 foreach ($group['options'] as $option) {
@@ -506,7 +506,7 @@ class FormTemplater
             }
             $values = array_merge(array_diff($values, array_keys($tmp_vals)), array_values($tmp_vals));
 
-            //build subtext for read only
+            // build subtext for read only
             $res = [];
             foreach ($values as $value) {
                 if (is_array($value)) {

@@ -44,9 +44,9 @@ abstract class Renderer extends EscFunc
     ): void {
         $defaultFunction = [__CLASS__, 'defaultEscapeFunction'];
 
-        //throw away the keys (needed later), numeric keys need to be used
+        // throw away the keys (needed later), numeric keys need to be used
         $escapeFunctions = array_values($escapeFunctions);
-        //set every function which is null or empty to default function
+        // set every function which is null or empty to default function
         array_walk(
             $escapeFunctions,
             static function (&$val) use ($defaultFunction) {
@@ -55,7 +55,7 @@ abstract class Renderer extends EscFunc
                 }
             }
         );
-        //count the parameters of all functions, which can be used
+        // count the parameters of all functions, which can be used
         $reflectionsOfFunctions = [];
         $isReflectionMethods = [];
         $paramSum = 0;
@@ -68,11 +68,11 @@ abstract class Renderer extends EscFunc
                 $rf = new ReflectionFunction($escapeFunction);
                 $isReflectionMethods[] = false;
             }
-            //let some space in the idx
+            // let some space in the idx
             $reflectionsOfFunctions[$idx] = $rf;
             $paramSum += $rf->getNumberOfParameters();
         }
-        //if there are to fewer parameters - add some default functions.
+        // if there are to fewer parameters - add some default functions.
         $diff = count($header) - count($escapeFunctions);
         if ($diff > 0) {
             $paramSum += $diff;
@@ -133,18 +133,18 @@ abstract class Renderer extends EscFunc
                     </tr>
                 <?php }
                 foreach ($rows as $row) {
-                    //echo count($row) . "-". count($escapeFunctions) . "-". count($header);
+                    // echo count($row) . "-". count($escapeFunctions) . "-". count($header);
                     ?>
                     <tr>
                         <?php
-                        //throw away keys
+                        // throw away keys
                         if (! $assoc) {
                             $row = array_values($row);
                         }
 
                     $shiftIdx = 0;
                     foreach ($reflectionsOfFunctions as $idx => $reflectionOfFunction) {
-                        //var_export($keys);
+                        // var_export($keys);
                         $arg_keys = array_slice(
                             $keys,
                             $shiftIdx,
@@ -154,9 +154,9 @@ abstract class Renderer extends EscFunc
                         foreach ($arg_keys as $arg_key) {
                             $args[] = $row[$arg_key];
                         }
-                        //var_export($args);
-                        //var_export($row);
-                        //var_export($reflectionOfFunction->getNumberOfParameters());
+                        // var_export($args);
+                        // var_export($row);
+                        // var_export($reflectionOfFunction->getNumberOfParameters());
                         $shiftIdx += $reflectionOfFunction->getNumberOfParameters();
                         if ($isReflectionMethods[$idx]) {
                             echo '<td>'.call_user_func_array($escapeFunctions[$idx], $args).'</td>';
@@ -304,10 +304,10 @@ abstract class Renderer extends EscFunc
 
     protected function makeClickableMails($text)
     {
-        //$text = htmlspecialchars($text);
+        // $text = htmlspecialchars($text);
         $matches = [];
         preg_match_all('#[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}#', $text, $matches);
-        //var_dump($matches[0]);
+        // var_dump($matches[0]);
         foreach ($matches[0] as $match) {
             $text = str_replace($match, $this->mailto($match), $text);
         }

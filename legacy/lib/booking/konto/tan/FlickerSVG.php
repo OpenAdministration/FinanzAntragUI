@@ -83,7 +83,7 @@ class FlickerSVG extends SVG
             $rect->addChild($animation);
             $doc->addChild($rect);
         }
-        //var_dump($this->bitPatterns);
+        // var_dump($this->bitPatterns);
     }
 
     public function getAnimation(int $channelNumber): SVGAnimate

@@ -54,6 +54,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Expenses whereZahlungName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Expenses whereZahlungVwzk($value)
  *
+ * @property string $ok-belege
+ * @property string $ok-hv
+ * @property string $ok-kv
+ * @property string $zahlung-iban
+ * @property string $zahlung-name
+ * @property string $zahlung-vwzk
+ *
  * @mixin \Eloquent
  */
 class Expenses extends Model

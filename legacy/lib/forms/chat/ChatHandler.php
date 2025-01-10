@@ -87,18 +87,18 @@ class ChatHandler
      * @var array
      */
     private $colors = [
-        //own comment color
+        // own comment color
         'owner' => [['DCDCDC', '000']],
         'default' => [['CCCCCC', '000']],
-        //private message
+        // private message
         '-1' => [['DDDDDD', '000']],
-        //normal comments color, map
+        // normal comments color, map
         '0' => [['C7CAC3', '000'], ['AEB2A8', '000'], ['989C90', '000'], ['84887C', '000'], ['BAC4A5', '000']],
-        //system message
+        // system message
         '1' => [['5BC0DE', 'fff']],
-        //admin message
+        // admin message
         '2' => [['AA3939', '000'], ['801515', 'fff'], ['D46A6A', 'fff'], ['550000', 'fff'], ['FFAAAA', '000']],
-        //finanzen message
+        // finanzen message
         '3' => [['0D58A6', 'fff'], ['094480', 'fff'], ['306DAB', 'fff'], ['063465', 'fff'], ['5286BC', 'fff']],
     ];
 
@@ -282,7 +282,7 @@ class ChatHandler
             ];
         }
         foreach ($this->comments as $k => $c) {
-            //position
+            // position
             if ($user === $c['creator']) {
                 $this->comments[$k]['pos'] = 'right';
             } elseif ($c['type'] === 1) {
@@ -290,7 +290,7 @@ class ChatHandler
             } else {
                 $this->comments[$k]['pos'] = 'left';
             }
-            //color + border color
+            // color + border color
             $colorKey = 'default';
             if (array_key_exists($c['type'], $map)) {
                 $colorKey = $c['type'];
@@ -298,14 +298,14 @@ class ChatHandler
             if ($c['type'] != 2 && $c['type'] != 3 && $c['creator'] == $user) {
                 $colorKey = 'owner';
             }
-            //------------
+            // ------------
             $cc = $c['creator'];
             if (! isset($map[$colorKey]['user'][$cc])) {
                 $map[$colorKey]['user'][$cc] = $this->colors[$colorKey][($map[$colorKey]['color-position'] % $map[$colorKey]['color-count'])];
                 $map[$colorKey]['color-position']++;
             }
             $this->comments[$k]['color'] = $map[$colorKey]['user'][$cc];
-            //extra class
+            // extra class
             if (isset($this->classMap[$c['type']])) {
                 $this->comments[$k]['class'] = $this->classMap[$c['type']];
             }

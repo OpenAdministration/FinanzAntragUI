@@ -125,7 +125,7 @@ class DBConnector extends Singleton
 
         $scheme['user'] = [
             'id' => 'INT NOT NULL',
-            //'fullname' => 'varchar(255) NOT NULL',
+            // 'fullname' => 'varchar(255) NOT NULL',
             'name' => 'varchar(255) NOT NULL', // virtual alias for fullname
             'username' => 'varchar(32) NOT NULL',
             'email' => 'varchar(128) NOT NULL',
@@ -283,7 +283,7 @@ class DBConnector extends Singleton
             'primary' => ['id'],
             'foreign' => [
                 'auslagen_id' => ['auslagen', 'id'],
-                //"file_id" => ["fileinfo", "id"]
+                // "file_id" => ["fileinfo", "id"]
             ],
         ];
 
@@ -302,7 +302,7 @@ class DBConnector extends Singleton
             ],
             'foreign' => [
                 'beleg_id' => ['belege', 'id'],
-                //"projekt_posten_id" => ["projektposten", "id"], would need to be double key -> info missing
+                // "projekt_posten_id" => ["projektposten", "id"], would need to be double key -> info missing
             ],
         ];
 
@@ -461,7 +461,7 @@ class DBConnector extends Singleton
         $this->scheme = $scheme;
         $this->schemeKeys = $keys;
 
-        //build valid fields out of schemes
+        // build valid fields out of schemes
         $validFields = [['*']];
         $blacklist = ['log', 'log_property'];
         foreach ($scheme as $tblname => $content) {
@@ -473,12 +473,12 @@ class DBConnector extends Singleton
                 continue;
             }
             $colnames = array_keys($content);
-            //all all colnames of this table
+            // all all colnames of this table
             $validFields[] = $colnames;
             $func = static function (&$val, $key) use ($tblname) {
                 $val = $tblname.'.'.$val;
             };
-            //add all colnames with tablename.colname
+            // add all colnames with tablename.colname
             array_walk($colnames, $func);
             $validFields[] = $colnames;
         }
@@ -629,7 +629,7 @@ class DBConnector extends Singleton
         string|array $tables, array $fetchStyles = [self::FETCH_ASSOC], array $showColumns = [], array $where = [],
         array $joins = [], array $sort = [], array $groupBy = [], int $limit = 0, bool $debug = false
     ) {
-        //check if all tables are known
+        // check if all tables are known
         if (! is_array($tables)) {
             $tables = [$tables];
         }
@@ -640,12 +640,12 @@ class DBConnector extends Singleton
             }
         }
 
-        //fill with everything if empty
+        // fill with everything if empty
         if (empty($showColumns)) {
             $showColumns = ['*'];
         }
 
-        //substitute * with tablename.*
+        // substitute * with tablename.*
         if (in_array('*', $showColumns, true)) {
             unset($showColumns[array_search('*', $showColumns, true)]);
             foreach ($tables as $t) {
@@ -656,7 +656,7 @@ class DBConnector extends Singleton
             }
         }
 
-        //apply alias for table.* and set everywhere an aggregate function (default: none)
+        // apply alias for table.* and set everywhere an aggregate function (default: none)
         $newShowColumns = [];
         foreach ($showColumns as $alias => $content) {
             if (is_array($content)) {
@@ -676,7 +676,7 @@ class DBConnector extends Singleton
             }
         }
 
-        //check join
+        // check join
         $validJoinOnOperators = ['=', '<', '>', '<>', '<=', '>='];
         foreach (array_keys($joins) as $nr) {
             if (! isset($joins[$nr]['table'])) {
@@ -696,7 +696,7 @@ class DBConnector extends Singleton
                 throw new LegacyDieException(500, "on '{$joins[$nr]['on']}' has to be an array!");
             }
             if (count($joins[$nr]['on']) === 2 && ! is_array($joins[$nr]['on'][0])) {
-                $joins[$nr]['on'] = [$joins[$nr]['on']]; //if only 1 "on" set bring it into an array-form
+                $joins[$nr]['on'] = [$joins[$nr]['on']]; // if only 1 "on" set bring it into an array-form
             }
             foreach ($joins[$nr]['on'] as $pair) {
                 if (! is_array($pair)) {
@@ -740,7 +740,7 @@ class DBConnector extends Singleton
         }
 
         //
-        //prebuild sql
+        // prebuild sql
         //
         $cols = [];
         foreach ($newShowColumns as $alias => [$col, $aggregateConst]) {
@@ -758,7 +758,7 @@ class DBConnector extends Singleton
 
         $joinVals = [];
         $j = [];
-        //var_dump($joins);
+        // var_dump($joins);
         foreach ($joins as $nr => $join) {
             $jtype = isset($join['type']) ? (strtoupper($join['type']).' JOIN') : 'NATURAL JOIN';
             if ($jtype === 'NATURAL JOIN') {
@@ -841,7 +841,7 @@ class DBConnector extends Singleton
             $sql .= PHP_EOL.'LIMIT '.$limit;
         }
 
-        //HTMLPageRenderer::registerProfilingBreakpoint($sql);
+        // HTMLPageRenderer::registerProfilingBreakpoint($sql);
         HTMLPageRenderer::registerProfilingBreakpoint('sql-start');
         if ($debug) {
             var_dump($sql);
@@ -873,7 +873,7 @@ class DBConnector extends Singleton
 
         if (in_array(self::FETCH_ONLY_FIRST_COLUMN, $fetchStyles, true)) {
             $PDOfetchType |= PDO::FETCH_COLUMN;
-        }//noelsif
+        }// noelsif
 
         if (in_array(self::FETCH_UNIQUE_FIRST_COL_AS_KEY, $fetchStyles, true)) {
             $PDOfetchType |= PDO::FETCH_GROUP | PDO::FETCH_UNIQUE;
@@ -888,8 +888,8 @@ class DBConnector extends Singleton
 
     private function buildWhereSql($where): array
     {
-        //check $where and bring in good shape
-        //check if there are only numeric keys
+        // check $where and bring in good shape
+        // check if there are only numeric keys
         if (count(array_filter(array_keys($where), 'is_string')) > 0) {
             $where = [$where];
         }
@@ -1024,7 +1024,7 @@ class DBConnector extends Singleton
         if (! isset($this->scheme[$table])) {
             throw new LegacyDieException(500, "Unkown table $table");
         }
-        //if (isset($fields["id"])) unset($fields["id"]);
+        // if (isset($fields["id"])) unset($fields["id"]);
 
         $fields = array_intersect_key($fields, $this->scheme[$table]);
         $p = array_fill(0, count($fields), '?');
@@ -1081,7 +1081,7 @@ class DBConnector extends Singleton
         $placeholder = array_fill(0, count($values), $placeholderSingle);
         $sql .= implode(','.PHP_EOL, $placeholder);
 
-        //TODO: php 7.4: [] can be removed, array merge accepts also no arguments there
+        // TODO: php 7.4: [] can be removed, array merge accepts also no arguments there
         $values = array_merge([], ...$values);
 
         $query = $this->pdo->prepare($sql);
@@ -1164,7 +1164,7 @@ class DBConnector extends Singleton
             $this->scheme[$table],
             array_flip($this->validFields)
         ); // only fetch using id and url
-        //$fields = array_diff_key(array_intersect_key($fields, $this->scheme[$table]), array_flip($this->validFields)); # do not update filter fields
+        // $fields = array_diff_key(array_intersect_key($fields, $this->scheme[$table]), array_flip($this->validFields)); # do not update filter fields
         $fields = array_intersect_key($fields, array_flip($this->validFields));
         if (count($filter) === 0) {
             throw new LegacyDieException(500, 'No filter fields given.');
@@ -1180,7 +1180,7 @@ class DBConnector extends Singleton
         [$whereSql, $val] = $this->buildWhereSql($filter);
 
         $sql = 'UPDATE '.$this->dbPrefix."$table SET ".implode(', ', $u).$whereSql;
-        //print_r($sql);
+        // print_r($sql);
         $query = $this->pdo->prepare($sql);
         $values = array_merge(array_values($fields), $val);
 
@@ -1239,8 +1239,8 @@ class DBConnector extends Singleton
         $groups = [];
         $titelIdsToGroupId = [];
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $gId = array_shift($row); //hhpgruppen_id
-            $tId = array_shift($row); //t.id
+            $gId = array_shift($row); // hhpgruppen_id
+            $tId = array_shift($row); // t.id
             $groups[$gId][$tId] = $row;
             $titelIdsToGroupId[$tId] = $gId;
         }
@@ -1284,11 +1284,11 @@ class DBConnector extends Singleton
     public function getMoneyByTitle($hhp_id, $summed = true, $titel_id = null): array
     {
         if ($summed) {
-            //summed
+            // summed
             $group_type = self::GROUP_SUM_ROUND2;
             $groupBy = ['titel_id'];
         } else {
-            //not summed
+            // not summed
             $group_type = self::GROUP_NOTHING;
             $groupBy = [];
         }
@@ -1298,7 +1298,7 @@ class DBConnector extends Singleton
             $whereClosed['titel_id'] = $titel_id;
             $whereOpen['titel_id'] = $titel_id;
         }
-        //ermittle alle buchungen von projekten die beendet sind
+        // ermittle alle buchungen von projekten die beendet sind
         $closedMoneyByTitel = $this->dbFetchAll(
             'auslagen',
             [self::FETCH_ASSOC],
@@ -1379,7 +1379,7 @@ class DBConnector extends Singleton
             $groupBy
         );
         $counter = count($closedMoneyByTitel);
-        //merge for adding value
+        // merge for adding value
         $moneyByTitel = array_merge($closedMoneyByTitel, $openMoneyByTitel);
         foreach ($moneyByTitel as $key => $row) {
             $value = 0;
@@ -1395,7 +1395,7 @@ class DBConnector extends Singleton
             $moneyByTitel[$key]['value'] = $value;
         }
 
-        //split again (close,open)
+        // split again (close,open)
         return [array_slice($moneyByTitel, 0, $counter), array_slice($moneyByTitel, $counter)];
     }
 

@@ -20,7 +20,7 @@ $routeInfo = $router->route();
 // handle route -------------------------
 // print_r($routeInfo);
 // print_r($_POST);
-//dd($routeInfo);
+// dd($routeInfo);
 $htmlRenderer = new HTMLPageRenderer($routeInfo);
 $controllerName = $routeInfo['controller'];
 switch ($controllerName) {

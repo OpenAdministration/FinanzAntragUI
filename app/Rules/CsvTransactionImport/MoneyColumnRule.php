@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Collection;
 
-class MoneyRule implements ValidationRule
+class MoneyColumnRule implements ValidationRule
 {
     public function __construct(private Collection $column) {}
 
@@ -21,7 +21,7 @@ class MoneyRule implements ValidationRule
         foreach ($this->column as $entry) {
 
             if (! is_numeric(str_replace(',', '.', $entry))) {
-                $fail(__('konto.csv-verify-money-error'));
+                $fail(__('konto.csv-verify-money-error', ['value' => $entry]));
             }
         }
     }

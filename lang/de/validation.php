@@ -93,7 +93,8 @@ return [
         'numeric' => 'Das :attribute muss kleiner oder gleich :max sein.',
         'string' => 'Das :attribute muss kleiner oder gleich :max Zeichen sein.',
     ],
-    'mimes' => 'Das :attribute muss eine Datei vom Typ: :value sein.',
+    'extensions' => 'Das :attribute muss die eine der folgenden Dateiendung haben: :values.',
+    'mimes' => 'Das :attribute muss eine Datei vom Typ: :values sein.',
     'mimetypes' => 'Das :attribute muss eine Datei vom Typ: :values sein.',
     'min' => [
         'array' => 'Das :attribute muss :min Elemente oder mehr haben.',
@@ -165,7 +166,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Die folgenden Sprachzeilen werden verwendet, um unseren Attributplatzhalter
-    | durch etwas Lesefreundlicheres zu ersetzen, z. B. "E-Mail-Adresse" anstelle von "email". Dies hilft uns einfach, unsere Nachricht ausdrucksstärker zu machen.
+    | durch etwas Lesefreundlicheres zu ersetzen, z. B. "E-Mail-Adresse" anstelle von "email".
+    | Dies hilft uns einfach, unsere Nachricht ausdrucksstärker zu machen.
     |
     */
 

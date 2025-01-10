@@ -48,7 +48,7 @@ return [
     'label.transaction.customer_ref' => 'Kundenreferenz',
     'hint.transaction.customer_ref' => 'ggfs. weitere Angaben zum Auftrag',
     'csv-verify-iban-error' => 'Validierungsfehler: Enthält ungültige IBANs',
-    'csv-verify-money-error' => 'Validierungsfehler: Enthält nicht-numerische Daten',
+    'csv-verify-money-error' => 'Validierungsfehler: Enthält nicht-numerische Daten (:value)',
     'csv-verify-balance-error-wrong-datatype' => 'Validierungsfehler: Falscher Datentyp',
     'csv-verify-balance-error' => 'Validierungsfehler: Es besteht keine lückenlose Transaktionshistorie in Zeile :error-in-row der CSV. Berechnetes Saldo :calc-saldo ≠ CSV-Saldo :csv-saldo',
     'csv-verify-date-error' => 'Validierungsfehler: Falscher Datentyp',

@@ -49,6 +49,12 @@ return [
             'root' => env('BACKUP_DIR_PATH', dirname(base_path())),
             'throw' => false,
         ],
+
+        'tests' => [
+            'driver' => 'local',
+            'root' => storage_path('tests'),
+            'throw' => false,
+        ],
     ],
 
     /*

@@ -21,12 +21,11 @@ Route::get('auth/callback', [\App\Http\Controllers\AuthController::class, 'callb
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('plan', [\App\Http\Controllers\BudgetPlanController::class, 'index'])->name('budget-plan.index');
-    Route::get('plan/create', [\App\Http\Controllers\BudgetPlanController::class, 'create'])->name('budget-plan.create');
     Route::get('plan/{plan_id}', [\App\Http\Controllers\BudgetPlanController::class, 'show'])->name('budget-plan.show');
-    //Route::get('plan/{plan_id}/edit', \App\Http\Livewire\BudgetPlanLivewire::class)->name('budget-plan.edit');
+    // Route::get('plan/{plan_id}/edit', \App\Http\Livewire\BudgetPlanLivewire::class)->name('budget-plan.edit');
 
     Route::get('konto/import/manual', \App\Livewire\TransactionImportWire::class)->name('konto.import.manual');
+
 });
 
 // guest routes
@@ -53,7 +52,3 @@ Route::get('blog', static function () {
 Route::get('docs', static function () {
     return redirect(config('app.docs_url'));
 })->name('docs');
-
-if (App::isLocal()) {
-    Route::get('dev/groups', [\App\Http\Controllers\Dev::class, 'groups']);
-}

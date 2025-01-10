@@ -5,6 +5,8 @@ namespace App\Models\Legacy;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Legacy\LegacyBudgetItem
+ *
  * @property int $id
  * @property int $hhpgruppen_id
  * @property string $titel_name
@@ -12,6 +14,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $value
  * @property Booking[] $bookings
  * @property LegacyBudgetGroup $haushaltsgruppen
+ * @property-read int|null $bookings_count
+ * @property-read \App\Models\Legacy\LegacyBudgetGroup $budgetGroup
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem query()
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem whereHhpgruppenId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem whereTitelName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem whereTitelNr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LegacyBudgetItem whereValue($value)
+ *
+ * @mixin \Eloquent
  */
 class LegacyBudgetItem extends Model
 {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FRAMEWORK JsonHandler
  *
@@ -194,29 +195,25 @@ class RestHandler extends EscFunc
             if (abs($last['saldo'] + $fields['value'] - $fields['saldo']) < 0.01) {
                 DBConnector::getInstance()->dbInsert('konto', $fields);
             } else {
-                JsonController::print_json(
-                    [
-                        'success' => false,
-                        'status' => '200',
-                        'msg' => "Alter Saldo ({$last['saldo']}) und neuer Wert ({$fields['value']}) ergeben nicht neuen Saldo ({$fields['saldo']})!",
-                        'type' => 'modal',
-                        'subtype' => 'server-error',
-                        'headline' => 'Fehler bei der Verarbeitung',
-                    ]
-                );
+                JsonController::print_json([
+                    'success' => false,
+                    'status' => '200',
+                    'msg' => "Alter Saldo ({$last['saldo']}) und neuer Wert ({$fields['value']}) ergeben nicht neuen Saldo ({$fields['saldo']})!",
+                    'type' => 'modal',
+                    'subtype' => 'server-error',
+                    'headline' => 'Fehler bei der Verarbeitung',
+                ]);
             }
         }
-        JsonController::print_json(
-            [
-                'success' => true,
-                'status' => '200',
-                'msg' => 'Die Seite wird gleich neu geladen',
-                'type' => 'modal',
-                'subtype' => 'server-success',
-                'reload' => 1000,
-                'headline' => 'Erfolgreich gespeichert',
-            ]
-        );
+        JsonController::print_json([
+            'success' => true,
+            'status' => '200',
+            'msg' => 'Die Seite wird gleich neu geladen',
+            'type' => 'modal',
+            'subtype' => 'server-success',
+            'reload' => 1000,
+            'headline' => 'Erfolgreich gespeichert',
+        ]);
     }
 
     public function handleProjekt($routeInfo = null): void
@@ -266,27 +263,27 @@ class RestHandler extends EscFunc
                     throw new ActionNotSetException('Unbekannte Aktion verlangt!');
             }
         } catch (ActionNotSetException|IdNotSetException|WrongVersionException|
-                InvalidDataException|PDOException|IllegalTransitionException $exception) {
-                    $ret = false;
-                    $msgs[] = 'Ein Fehler ist aufgetreten';
-                    $msgs[] = $exception->getMessage();
-                } catch (IllegalStateException $exception) {
-                    $ret = false;
-                    $msgs[] = 'In diesen Status darf nicht gewechselt werden!';
-                    $msgs[] = $exception->getMessage();
-                } finally {
-                    if ($ret) {
-                        $dbret = DBConnector::getInstance()->dbCommit();
-                    }
-                    if ($ret === false || $dbret === false) {
-                        DBConnector::getInstance()->dbRollBack();
-                        $msgs[] = 'Deine Änderungen wurden nicht gespeichert (DB Rollback)';
-                    } else {
-                        $msgs[] = 'Daten erfolgreich gespeichert!';
-                        $target = URIBASE.'projekt/'.$projektHandler->getID();
-                    }
+        InvalidDataException|PDOException|IllegalTransitionException $exception) {
+            $ret = false;
+            $msgs[] = 'Ein Fehler ist aufgetreten';
+            $msgs[] = $exception->getMessage();
+        } catch (IllegalStateException $exception) {
+            $ret = false;
+            $msgs[] = 'In diesen Status darf nicht gewechselt werden!';
+            $msgs[] = $exception->getMessage();
+        } finally {
+            if ($ret) {
+                $dbret = DBConnector::getInstance()->dbCommit();
+            }
+            if ($ret === false || $dbret === false) {
+                DBConnector::getInstance()->dbRollBack();
+                $msgs[] = 'Deine Änderungen wurden nicht gespeichert (DB Rollback)';
+            } else {
+                $msgs[] = 'Daten erfolgreich gespeichert!';
+                $target = URIBASE.'projekt/'.$projektHandler->getID();
+            }
 
-                }
+        }
 
         $json = [
             'success' => ($ret !== false),

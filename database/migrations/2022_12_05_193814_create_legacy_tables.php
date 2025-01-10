@@ -424,5 +424,7 @@ return new class extends Migration
 
         Schema::dropIfExists('auslagen');
 
+        Schema::dropIfExists('user');
+
     }
 };

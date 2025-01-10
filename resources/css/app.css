@@ -5,3 +5,6 @@
 .sidebar:hover {
     width: 16rem;
 }
+
+/* for alpinejs */
+[x-cloak] { display: none !important; }

@@ -53,7 +53,7 @@ class PermissionHandler
                 exit("Status $stateName is not defined in \$writePermissionAll");
             }
 
-            if ($writePermissionAll[$stateName] !== true) { //could be explicit true or false
+            if ($writePermissionAll[$stateName] !== true) { // could be explicit true or false
                 if (! isset($writePermissionAll[$stateName]['groups'])) {
                     $writePermissionAll[$stateName]['groups'] = [];
                 }
@@ -120,7 +120,7 @@ class PermissionHandler
             $this->editMode = $oldEditMode;
         }
 
-        //var_dump(["edit" =>$ret]);
+        // var_dump(["edit" =>$ret]);
         return $ret;
     }
 
@@ -137,7 +137,7 @@ class PermissionHandler
 
     private function checkPermissionArray($permArray): bool
     {
-        //var_dump($permArray);
+        // var_dump($permArray);
         if (is_bool($permArray)) {
             return $permArray;
         }
@@ -153,7 +153,7 @@ class PermissionHandler
             $ret |= in_array(AuthHandler::getInstance()->getUserFullName(), $permArray['persons'], true);
         }
 
-        //var_dump($ret);
+        // var_dump($ret);
         return (bool) $ret;
     }
 
@@ -171,7 +171,7 @@ class PermissionHandler
             "rules" => $this->writePermissionField[$state][$fieldname],
             "res" => $this->checkPermissionArray($this->writePermissionField[$state][$fieldname]),
         ]);*/
-        //echo '<pre>'; var_dump($this->writePermissionField); echo '</pre>';
+        // echo '<pre>'; var_dump($this->writePermissionField); echo '</pre>';
         return $this->checkPermissionArray($this->writePermissionField[$state][$fieldname]);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CONTROLLER FileHandler
  *
@@ -54,20 +55,20 @@ class FileController
     private function get($routeInfo): void
     {
         $fh = new FileHandler($this->db);
-        //get file
+        // get file
         $file = $fh->checkFileHash($routeInfo['key']);
         if (! $file) {
             throw new LegacyDieException(404);
 
             return;
         }
-        //TODO FIXME ACL - user has permission to download/view this file?
-        if (false) {//!checkUserPermission($top['gname'])) {
+        // TODO FIXME ACL - user has permission to download/view this file?
+        if (false) {// !checkUserPermission($top['gname'])) {
             throw new LegacyDieException(403);
             exit();
         }
-        //old:
-        //$fh->deliverFileData($file, $routeInfo['fdl']);
+        // old:
+        // $fh->deliverFileData($file, $routeInfo['fdl']);
         if (Storage::exists(FileHandler::getDiskpathOfFile($file))) {
             echo 'data:application/pdf;base64,';
             echo base64_encode(Storage::get(FileHandler::getDiskpathOfFile($file)));

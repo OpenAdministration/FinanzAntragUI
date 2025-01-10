@@ -1,3 +1,3 @@
 <time date="{{ $date }}">
-    {{ $date->format($format) }}
+    {{ $date?->format($format) }}
 </time>

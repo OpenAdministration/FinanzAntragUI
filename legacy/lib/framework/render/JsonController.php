@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FRAMEWORK JsonHandler
  *
@@ -86,7 +87,7 @@ class JsonController
      */
     public static function print_json(array $json, $jsonHeader = true): void
     {
-        //$json = json_encode($json, JSON_HEX_QUOT | JSON_HEX_TAG);
+        // $json = json_encode($json, JSON_HEX_QUOT | JSON_HEX_TAG);
         throw new LegacyJsonException($json);
     }
 }

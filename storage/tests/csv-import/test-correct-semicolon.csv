@@ -1,0 +1,6 @@
+Bezeichnung Auftragskonto;IBAN Auftragskonto;BIC Auftragskonto;Bankname Auftragskonto;Buchungstag;Valutadatum;Name Zahlungsbeteiligter;IBAN Zahlungsbeteiligter;BIC (SWIFT-Code) Zahlungsbeteiligter;Buchungstext;Verwendungszweck;Betrag;Waehrung;Saldo nach Buchung;Bemerkung;Kategorie;Steuerrelevant;Glaeubiger ID;Mandatsreferenz
+AStA - Basiskonto;DE12429644757213399722;NKZUVJYQ0P5;Meine Bank;05.06.2024;05.06.2024;Person 5;DE63365090851878254100;IHHVRZIL;Gutschrift;Entry 5;420,99;EUR;18474,22;;Sonstiges;;;
+AStA - Basiskonto;DE12429644757213399722;NKZUVJYQ0P5;Meine Bank;05.06.2024;05.06.2024;Person 4;DE76169365307164900914;MWFYLYEL;Basislastschrift;Entry 4;-43,4;EUR;18053,23;;Sonstiges;;;
+AStA - Basiskonto;DE12429644757213399722;NKZUVJYQ0P5;Meine Bank;04.06.2024;04.06.2024;Person 3;DE67615841552532938268;MVGUQVQWJZY;Gutschrift;Entry 3;2;EUR;18096,63;;Sonstiges;;;
+AStA - Basiskonto;DE12429644757213399722;NKZUVJYQ0P5;Meine Bank;03.06.2024;04.06.2024;Person 2;DE79181333728582849451;GENODEF1SDE;Gutschrift;Entry 2;5;EUR;18094,63;;Sonstiges;;;
+AStA - Basiskonto;DE12429644757213399722;NKZUVJYQ0P5;Meine Bank;03.06.2024;03.06.2024;Person 1;DE73447318315829961821;DZFPEL2K;Euro-Überweisung;Entry 1;-13,14;EUR;18089,63;;Sonstiges;;;

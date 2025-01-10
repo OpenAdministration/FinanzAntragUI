@@ -145,18 +145,18 @@ class SvgDiagramBlock extends SvgDiagramCore
         $yAchsisXPos = $this->settings['padding'] + $entryWidth;
         $yAchsisLength = $xAchsisYPos - $this->settings['padding'];
 
-        //generate x achsis
+        // generate x achsis
         $chartcontent .= $this->drawHLine(
             $xAchsisYPos,
             $entryWidth + $this->settings['padding'],
             $xAchsisLength);
-        //generate y achsis
+        // generate y achsis
         $chartcontent .= $this->drawVLine(
             $yAchsisXPos,
             $this->settings['padding'],
             $yAchsisLength);
 
-        //x Achsis description && get yMaxEntryVal
+        // x Achsis description && get yMaxEntryVal
         $i = 0;
         foreach ($this->dataset as $key => $set) {
             $chartcontent .= $this->drawText(
@@ -174,12 +174,12 @@ class SvgDiagramBlock extends SvgDiagramCore
                 null,
                 2);
             $i++;
-            //calculate y max value
+            // calculate y max value
             $yMaxEntryVal = max([$yMaxEntryVal, max($set)]);
         }
 
         // ----------- calculate y achsis --------------------
-        //calculate scale
+        // calculate scale
         $numlength = strlen((string) (int) $yMaxEntryVal);
         $yAchsisMax = pow(10, $numlength);
         $shrinkFlag = 0;
@@ -201,7 +201,7 @@ class SvgDiagramBlock extends SvgDiagramCore
         $yAchsisStep = $yAchsisMax / ($this->settings['BLOCK']['ySteps'] - $shrinkFlag);
         $yAchsisStepHeight = ($yAchsisLength) / ($this->settings['BLOCK']['ySteps'] - $shrinkFlag);
 
-        //draw step description
+        // draw step description
         for ($i = 0; $i < ($this->settings['BLOCK']['ySteps'] - $shrinkFlag); $i++) {
             $chartcontent .= $this->drawHLine(
                 $xAchsisYPos - $yAchsisStepHeight * ($i + 1),
@@ -227,7 +227,7 @@ class SvgDiagramBlock extends SvgDiagramCore
                 20);
         }
 
-        //draw achsis description
+        // draw achsis description
         if ($this->achsisDescription['x'] !== null) {
             $chartcontent .= $this->drawText(
                 $this->achsisDescription['x'],
@@ -251,7 +251,7 @@ class SvgDiagramBlock extends SvgDiagramCore
                 270);
         }
 
-        //draw Bars/Lines
+        // draw Bars/Lines
         $i = 0;
         $lines = [];
         foreach ($this->dataset as $key => $set) {
@@ -261,7 +261,7 @@ class SvgDiagramBlock extends SvgDiagramCore
             $j = 0;
             foreach ($set as $value) {
                 $barHeight = (($yAchsisLength) * $value) / $yAchsisMax;
-                if ($line === true) { //line diagramm -> fetch points
+                if ($line === true) { // line diagramm -> fetch points
                     if ($value === null && $this->settings['LINE']['ignore_null']) {
                         continue;
                     }
@@ -283,7 +283,7 @@ class SvgDiagramBlock extends SvgDiagramCore
 
             $i++;
         }
-        //draw lines & points
+        // draw lines & points
         if ($line === true) {
             $lastX = 0;
             $lastY = 0;
@@ -293,9 +293,9 @@ class SvgDiagramBlock extends SvgDiagramCore
                 $color = $this->colorMap[$lineNumber];
                 $pointIndex = 0;
                 foreach ($linePoints as $point) {
-                    //draw point
+                    // draw point
                     $lineObj .= $this->drawCircle($point['x'], $point['y'], $this->settings['LINE']['pointRadius'], $color, $color, 1, $point['value']);
-                    if ($pointIndex > 0) { //draw lines
+                    if ($pointIndex > 0) { // draw lines
                         $lineObj .= $this->drawLine(
                             $linePoints[$pointIndex - 1]['x'],
                             $linePoints[$pointIndex - 1]['y'],
@@ -311,7 +311,7 @@ class SvgDiagramBlock extends SvgDiagramCore
             }
         }
 
-        //daw explanation
+        // daw explanation
         if (count($this->explanation) > 0) {
             $i = 0;
             $y = $xAchsisYPos + $xFontOffset;

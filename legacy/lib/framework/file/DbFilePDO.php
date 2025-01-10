@@ -490,7 +490,7 @@ class DbFilePDO
         }
         $stmt = $this->db->prepare($sql);
         $fp = fopen($filename, 'rb');
-        //$data = fread ($fp, $filesize);
+        // $data = fread ($fp, $filesize);
         $data = $fp;
         if ($id) {
             $stmt->bindParam(1, $insert_id);
@@ -505,8 +505,8 @@ class DbFilePDO
             $last_id = $this->db->lastInsertId();
             $this->db->commit();
 
-            //dump($fp);
-            //fclose($fp);
+            // dump($fp);
+            // fclose($fp);
             return $last_id;
         } catch (Exception $e) {
             $this->_isError = true;

@@ -12,7 +12,7 @@
                 </a>
             </div>
         </div>
-        @if($plans->isEmpty())
+        @if($years->isEmpty())
             <a href="{{ route('budget-plan.create') }}" class="group mt-8 relative block w-full rounded-lg border-2 border-dashed border-gray-300
             p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 <x-heroicon-o-table-cells stroke-width="1" class="mx-auto h-12 w-12 text-gray-400 group-hover:text-gray-600" />
@@ -23,39 +23,42 @@
         @else
             <div class="mt-8 flex flex-col overflow-hidden bg-white shadow sm:rounded-md">
                 <ul role="list" class="divide-y divide-gray-200">
-                    @foreach($plans as $plan)
-                        <li>
-                            <a href="{{ route('budget-plan.show', ['plan_id' => $plan->id]) }}" class="block group hover:bg-gray-100">
-                                <div class="flex items-center justify-between">
-                                    <div class="px-4 py-4 sm:px-6">
-                                        <div class="flex items-center">
-                                            <p class="truncate text-sm font-medium text-indigo-600">
-                                                {{ $plan->organisation }}
-                                            </p>
-                                            <div class="ml-2 flex flex-shrink-0">
-                                                <p class="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                                                    {{ $plan->state }}
+                    @foreach($years as $year)
+                        <div>{{ $year->start_date }} - {{ $year->end_date }}</div>
+                        @foreach($year->budgetPlans as $plan)
+                            <li>
+                                <a href="{{ route('budget-plan.show', ['plan_id' => $plan->id]) }}" class="block group hover:bg-gray-100">
+                                    <div class="flex items-center justify-between">
+                                        <div class="px-4 py-4 sm:px-6">
+                                            <div class="flex items-center">
+                                                <p class="truncate text-sm font-medium text-indigo-600">
+                                                    {{ $plan->organisation }}
                                                 </p>
+                                                <div class="ml-2 flex flex-shrink-0">
+                                                    <p class="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
+                                                        {{ $plan->state }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 sm:flex sm:justify-between">
+                                                <div class="sm:flex">
+                                                    <p class="flex items-center text-sm text-gray-500">
+                                                        <x-heroicon-m-calendar class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" />
+                                                        <x-date :date="$plan->start_date" format="M y"/>
+                                                        <span class="px-1">-</span>
+                                                        <x-date :date="$plan->end_date" format="M y"/>
+                                                    </p>
+                                                    <!-- follows: class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6" -->
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="mt-2 sm:flex sm:justify-between">
-                                            <div class="sm:flex">
-                                                <p class="flex items-center text-sm text-gray-500">
-                                                    <x-heroicon-m-calendar class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" />
-                                                    <x-date :date="$plan->start_date" format="M y"/>
-                                                    <span class="px-1">-</span>
-                                                    <x-date :date="$plan->end_date" format="M y"/>
-                                                </p>
-                                                <!-- follows: class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6" -->
-                                            </div>
+                                        <div class="flex-shrink-0 pr-4">
+                                            <x-heroicon-s-chevron-right class="h-5 w-5 text-gray-400 group-hover:text-gray-600" />
                                         </div>
                                     </div>
-                                    <div class="flex-shrink-0 pr-4">
-                                        <x-heroicon-s-chevron-right class="h-5 w-5 text-gray-400 group-hover:text-gray-600" />
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        @endforeach
                     @endforeach
                 </ul>
             </div>

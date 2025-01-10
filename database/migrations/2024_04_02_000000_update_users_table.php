@@ -36,6 +36,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user');
+        if (Schema::hasColumn('user', 'name')) {
+            Schema::table('user', function (Blueprint $table) {
+                $table->renameColumn('name', 'fullname');
+            });
+        }
     }
 };

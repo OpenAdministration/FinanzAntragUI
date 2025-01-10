@@ -84,7 +84,7 @@ abstract class SvgDiagramCore
      */
     public function __construct()
     {
-        //init variables
+        // init variables
         $this->colorMap = ['red', 'blue', 'green',
             'yellow', 'purple', 'cyan',
             '#ef888d', '#d2a7e5', '#e5cd87',
@@ -500,7 +500,7 @@ abstract class SvgDiagramCore
         $size['aes'] = (is_array($arrowEnd) && isset($arrowEnd['stroke'])) ? $arrowEnd['stroke'] : $stroke;
         $size['aew'] = (is_array($arrowEnd) && isset($arrowEnd['stroke-width'])) ? $arrowEnd['stroke-width'] : $strokeWidth;
 
-        //h line first if direction == 0
+        // h line first if direction == 0
         $p .= (! $direction) ? 'H '.(($x2) + (($x2 > $x1) ? -abs($r) : abs($r))).' ' : 'V '.(($y2) + (($y2 > $y1) ? -abs($r) : abs($r))).' ';
         $a = '';
         if ($direction) {
@@ -589,7 +589,7 @@ abstract class SvgDiagramCore
             }
         }
         $p .= (! $direction) ? "M $x2,".($y1 + (($y2 > $y1) ? abs($r) : -abs($r))).' ' : 'M '.(($x1) + (($x2 > $x1) ? abs($r) : -abs($r))).",$y2 ";
-        //v line second if direction == 0
+        // v line second if direction == 0
         $p .= "L $x2,$y2";
         $p = $this->drawPath($p, $title, [], $fill, $stroke, $strokeWidth);
 
@@ -616,10 +616,10 @@ abstract class SvgDiagramCore
             $tit = '<title>'.$title.'</title>';
         }
 
-        //center between points
+        // center between points
         $xC = ($x1 + $x2) / 2;
         $yC = ($y1 + $y2) / 2;
-        //direction: vertical 1 | hoizontal 0
+        // direction: vertical 1 | hoizontal 0
         if ($direction) {
             $yB = ($yC + $y1) / 2;
             for ($i = 0; $i < 2; $i++) {
@@ -658,7 +658,7 @@ abstract class SvgDiagramCore
         if ($title != null) {
             $tit = '<title>'.$title.'</title>';
         }
-        //prepare
+        // prepare
         $r = $this->toCssFourValue($r);
         $spc = ' '; // readable names for path drawing instruction
         $moveTo = 'M';
@@ -666,7 +666,7 @@ abstract class SvgDiagramCore
         $vertLineTo = 'v';
         $arcTo = 'a';
         $closePath = 'z';
-        //shape out
+        // shape out
         $shape = ''.// path data
             $moveTo.$spc.($x + abs($r[3])).$spc.$y.$spc.
             $horizLineTo.$spc.($width - abs($r[0]) - abs($r[3])).$spc.
@@ -687,7 +687,7 @@ abstract class SvgDiagramCore
             $onclick = ' onclick="'.$options['onclick'].'"';
         }
         $out = '<path'.$onclick.' '.(($id) ? 'id="'.$id.'"' : '').(($class) ? ' class="'.$class.'"' : '').' fill="'.$options['fill'].'" stroke="'.$options['stroke'].'" d="'.$shape.'" >'.$tit.'</path>';
-        //text out
+        // text out
         if ($text) {
             $fsize = (is_string($text) || ! isset($text['size'])) ? $this->settings['fontsize'] : $text['size'];
             $out .= $this->drawText(
@@ -989,7 +989,7 @@ HEREDOC;
             $image->readImageBlob('<?xml version="1.0"?>'.$this->result);
             $image->setImageFormat('png24');
 
-            //$image->resizeImage(1024, 768, \imagick::FILTER_LANCZOS, 1); //need resize?
+            // $image->resizeImage(1024, 768, \imagick::FILTER_LANCZOS, 1); //need resize?
             return $image;
         } else {
             $add = (extension_loaded('gd')) ? " Sadly GD don't support svg converting." : '';
@@ -1013,7 +1013,7 @@ HEREDOC;
             $image->readImageBlob('<?xml version="1.0"?>'.$this->result);
             $image->setImageFormat('jpeg');
 
-            //$image->adaptiveResizeImage(1024, 768); //need resize?
+            // $image->adaptiveResizeImage(1024, 768); //need resize?
             return $image;
         } else {
             $add = (extension_loaded('gd')) ? " Sadly GD don't support svg converting." : '';

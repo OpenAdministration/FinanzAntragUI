@@ -9,64 +9,66 @@
             <select wire:model.live="account_id"
                     class="my-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
-                <option value="" selected></option>
+                <option value=""></option>
                 @foreach($accounts as $account)
                     <option value="{{ $account->id }}">{{ $account->name }}</option>
                 @endforeach
             </select>
-            <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-                @isset($latestTransaction)
-                    <div wire:transition.opacity>
-                        <div class="flex justify-between gap-x-4 py-3">
-                            <dt class="text-gray-500">{{ __('konto.csv-latest-saldo') }}:</dt>
-                            <dd class="text-gray-700">
-                                {{ $latestTransaction->saldo }} €
-                            </dd>
+            @if($account_id !== "")
+                <dl class="-my-3 divide-y divide-gray-100 py-4 text-sm leading-6" wire:transition.scale.origin.top>
+                    @isset($latestTransaction)
+                        <div wire:key="last-transaction" class="px-6 border-l-2 border-indigo-600">
+                            <div class="flex justify-between gap-x-4 py-3">
+                                <dt class="text-gray-500">{{ __('konto.csv-latest-saldo') }}:</dt>
+                                <dd class="text-gray-700">{{ $this->formatDataView($latestTransaction->saldo, 'value') }}</dd>
+                            </div>
+                            <div class="flex justify-between gap-x-4 py-3">
+                                <dt class="text-gray-500">{{ __('konto.csv-latest-date') }}:</dt>
+                                <dd class="text-gray-700">
+                                    {{ $latestTransaction->date->format('d.m.Y') }}
+                                </dd>
+                            </div>
+                            <div class="flex justify-between gap-x-4 py-3">
+                                <dt class="text-gray-500">{{ __('konto.csv-latest-zweck') }}:</dt>
+                                <dd class="text-gray-700">
+                                    {{ $latestTransaction->zweck }}
+                                </dd>
+                            </div>
                         </div>
-                        <div class="flex justify-between gap-x-4 py-3">
-                            <dt class="text-gray-500">{{ __('konto.csv-latest-date') }}:</dt>
-                            <dd class="text-gray-700">
-                                {{ $latestTransaction->date }}
-                            </dd>
+                    @else
+                        <div class="px-6 py-3 border-l-2 border-indigo-600" wire:key="no-transaction">
+                            <dt class="text-gray-700">{{ __('konto.csv-no-transaction') }}</dt>
                         </div>
-                        <div class="flex justify-between gap-x-4 py-3">
-                            <dt class="text-gray-500">{{ __('konto.csv-latest-zweck') }}:</dt>
-                            <dd class="text-gray-700">
-                                {{ $latestTransaction->zweck }}
-                            </dd>
-                        </div>
-                    </div>
-                @else
-                    @isset($account_id)
-                        <div wire:transition class="flex justify-between gap-x-4 py-3">
-                            <dt class="text-gray-700 center">{{ __('konto.csv-no-transaction') }}</dt>
-                        </div>
-                    @endisset
-                @endisset
-            </dl>
+                    @endif
+                </dl>
+            @endif
         </div>
-        @isset($account_id)
-            <div wire:transition.opacity>
-                <x-headline :headline="__('konto.csv-upload-headline')" :sub-text="__('konto.csv-upload-headline-sub')"/>
-                <x-drop-area wire:model="csv" :upload-done="!empty($csv)">
-                    <p class="mb-3 text-sm text-gray-500 dark:text-gray-400 font-semibold">{{ __('konto.csv-draganddrop-fat-text') }}</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ __('konto.csv-draganddrop-sub-text') }}</p>
-                </x-drop-area>
-            </div>
+        <div wire:key="csv-upload-block">
+            @if($account_id !== "")
+                <div>
+                    <x-headline :headline="__('konto.csv-upload-headline')" :sub-text="__('konto.csv-upload-headline-sub')"/>
+                    <x-drop-area wire:model="csv" :upload-done="!empty($csv)">
+                        <p class="mb-3 text-sm text-gray-500 dark:text-gray-400 font-semibold">{{ __('konto.csv-draganddrop-fat-text') }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ __('konto.csv-draganddrop-sub-text') }}</p>
+                    </x-drop-area>
+                </div>
+            @endif
+        </div>
 
-        @endisset
-        @isset($csv)
-            <x-headline :headline="__('konto.transaction.headline')" :sub-text="__('konto.transaction.headline-sub')"/>
-            <div class="my-5">
-                <x-toggle wire:click="reverseCsvOrder" :active="$csvOrder === 1">
-                    <span class="font-medium text-gray-900">{{ __('konto.manual-button-reverse-csv-order') }}</span>
-                    <span class="text-sm text-gray-500 ml-1">{{ __('konto.manual-button-reverse-csv-order-sub') }}</span>
-                </x-toggle>
+        @if(isset($csv) && !$errors->has('csv'))
+            <div wire:transition.scale.origin.top>
+                <x-headline :headline="__('konto.transaction.headline')" :sub-text="__('konto.transaction.headline-sub')"/>
+                <div class="my-5">
+                    <x-toggle wire:click="reverseCsvOrder" :active="$csvOrder === 1">
+                        <span class="font-medium text-gray-900">{{ __('konto.manual-button-reverse-csv-order') }}</span>
+                        <span class="text-sm text-gray-500 ml-1">{{ __('konto.manual-button-reverse-csv-order-sub') }}</span>
+                    </x-toggle>
+                </div>
             </div>
-        @endisset
+        @endif
     </div>
-    @isset($csv)
-        <x-grid-list>
+    @if(isset($csv) && !$errors->has('csv'))
+        <x-grid-list wire:transition.scale.origin.top>
             @foreach($labels as $attr => $label)
                 <x-grid-list.item-card wire:key="{{ $attr }}">
                     <div>

@@ -621,12 +621,12 @@ class NewValidator
 
         $out = [];
         foreach ($a as $arrayKey => $entry) {
-            //key
+            // key
             $keyFiltered = $arrayKey;
             if (isset($params['key'])) {
                 [,$keyFiltered] = $this->_validate($arrayKey, $params['key'], $keys);
             }
-            //value
+            // value
             [,$sanitizedEntry] = $this->_validate($entry, $params['values'], [...$keys, $arrayKey]);
 
             $out[$keyFiltered] = $sanitizedEntry;
@@ -648,12 +648,12 @@ class NewValidator
     {
         $iban = trim(strip_tags(''.$value));
         $iban = strtoupper($iban); // to upper
-        $iban = preg_replace('/(\s|\n|\r)/', '', $iban); //remove white spaces
-        //empty
+        $iban = preg_replace('/(\s|\n|\r)/', '', $iban); // remove white spaces
+        // empty
         if ($iban === '' && in_array('empty', $params, true)) {
             return [true, ''];
         }
-        //check iban
+        // check iban
         if (! self::_checkIBAN($iban)) {
             $msg = $params['error'] ?? 'IBAN validation failed';
             $this->addError($msg, 'iban', $keys, $iban);
@@ -678,7 +678,7 @@ class NewValidator
         $iban = strtoupper(str_replace(' ', '', $iban));
         $countries = ['AL' => 28, 'AD' => 24, 'AT' => 20, 'AZ' => 28, 'BH' => 22, 'BE' => 16, 'BA' => 20, 'BR' => 29, 'BG' => 22, 'CR' => 21, 'HR' => 21, 'CY' => 28, 'CZ' => 24, 'DK' => 18, 'DO' => 28, 'EE' => 20, 'FO' => 18, 'FI' => 18, 'FR' => 27, 'GE' => 22, 'DE' => 22, 'GI' => 23, 'GR' => 27, 'GL' => 18, 'GT' => 28, 'HU' => 28, 'IS' => 26, 'IE' => 22, 'IL' => 23, 'IT' => 27, 'JO' => 30, 'KZ' => 20, 'KW' => 30, 'LV' => 21, 'LB' => 28, 'LI' => 21, 'LT' => 20, 'LU' => 20, 'MK' => 19, 'MT' => 31, 'MR' => 27, 'MU' => 30, 'MC' => 27, 'MD' => 24, 'ME' => 22, 'NL' => 18, 'NO' => 15, 'PK' => 24, 'PS' => 29, 'PL' => 28, 'PT' => 25, 'QA' => 29, 'RO' => 24, 'SM' => 27, 'SA' => 24, 'RS' => 22, 'SK' => 24, 'SI' => 19, 'ES' => 24, 'SE' => 24, 'CH' => 21, 'TN' => 24, 'TR' => 26, 'AE' => 23, 'GB' => 22, 'VG' => 24];
 
-        //1. check country code exists + iban has valid length
+        // 1. check country code exists + iban has valid length
         if (! array_key_exists(substr($iban, 0, 2), $countries)) {
             return false;
         }
@@ -692,10 +692,10 @@ class NewValidator
             return false;
         }
 
-        //2. Rearrange country code and checksum
+        // 2. Rearrange country code and checksum
         $rearranged = substr($iban, 4).substr($iban, 0, 4);
 
-        //3. convert to integer
+        // 3. convert to integer
         $iban_letters = str_split($rearranged);
         $iban_int_only = '';
         foreach ($iban_letters as $char) {
@@ -711,7 +711,7 @@ class NewValidator
             }
         }
 
-        //4. calculate mod 97 -> have to be 1
+        // 4. calculate mod 97 -> have to be 1
         return bcmod($iban_int_only, '97') === '1';
     }
 }

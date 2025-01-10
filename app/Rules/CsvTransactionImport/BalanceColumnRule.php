@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Collection;
 
-class BalanceRule implements ValidationRule
+class BalanceColumnRule implements ValidationRule
 {
     private readonly Collection $differences;
 

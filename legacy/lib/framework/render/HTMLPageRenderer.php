@@ -81,8 +81,8 @@ class HTMLPageRenderer
     public function render(): void
     {
         $this->renderHtmlHeader();
-        //$this->renderNavbar();
-        //$this->renderSiteNavigation();
+        // $this->renderNavbar();
+        // $this->renderSiteNavigation();
         echo "<div class='container col-xs-12 col-lg-offset-2 col-lg-8'>";
         if ($this->hasError()) {
             $this->renderError();
@@ -185,7 +185,7 @@ class HTMLPageRenderer
         if (isset($this->routeInfo['load'])) {
             $jsFiles = array_merge($jsFiles, ...array_column($this->routeInfo['load'], 'js'));
         }
-        //var_dump($this->routeInfo["load"]);
+        // var_dump($this->routeInfo["load"]);
         foreach ($jsFiles as $jsFile) {
             $out .= "<script src='".asset("js/$jsFile.js")."'></script>".PHP_EOL;
         }
@@ -363,7 +363,7 @@ class HTMLPageRenderer
             basename(self::$profiling_sources[$size - 1]['file']).':'.
             self::$profiling_sources[$size - 1]['line'].'
                 </i>';
-        //Wrapp all output till now with div
+        // Wrapp all output till now with div
         $out = '<div class="profiling-output"><h3><i class="fa fa-fw fa-angle-toggle"></i> Ladezeit: '.sprintf('%f', $sum).'</h3>'.$out;
         $out .= '</div>';
         echo $out;

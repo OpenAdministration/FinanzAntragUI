@@ -18,8 +18,8 @@ class LegacyMiddleware
         if (\Auth::user()?->getGroups()->contains($groupName)) {
             return $next($request);
         }
-        //dump($groupName);
-        //dump(\Auth::user()->getGroups());
+        // dump($groupName);
+        // dump(\Auth::user()->getGroups());
         abort(403);
     }
 }

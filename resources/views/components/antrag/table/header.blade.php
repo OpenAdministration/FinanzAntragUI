@@ -1,0 +1,1 @@
+<th scope="col" class="first:hidden first:sm:table-cell px-3 py-3.5 text-sm font-semibold text-gray-900 last:relative first:pl-4 first:sm:pl-6 last:pr-4 last:sm:pr-6 whitespace-nowrap text-left last:text-right">{{ $slot }}</th>

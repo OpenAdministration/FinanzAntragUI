@@ -17,12 +17,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        //BudgetPlan::factory(5)->populate()->create();
+        // BudgetPlan::factory(5)->populate()->create();
 
-        $this->call(LegacySeeder::class);
+        if (\App::runningUnitTests()) {
+            $this->call(DemoSeeder::class);
+            $this->call(LocalSeeder::class);
+            $this->call(TestSeeder::class);
+        }
 
         if (\App::isLocal()) {
+            $this->call(DemoSeeder::class);
             $this->call(LocalSeeder::class);
+        }
+
+        if (\App::isProduction()) {
+            $this->call(ProductionSeeder::class);
         }
     }
 }

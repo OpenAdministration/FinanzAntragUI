@@ -83,10 +83,10 @@ class BookingTableManager extends Renderer
             ['booking_instruction.id' => true]
         );
 
-        //$this->instructions = array_intersect_key($this->instructions, array_flip([11, 6]));  // FIXME DELETEME
-        //echo "<pre>";
-        //var_dump($this->instructions[60]);
-        //echo "</pre>";
+        // $this->instructions = array_intersect_key($this->instructions, array_flip([11, 6]));  // FIXME DELETEME
+        // echo "<pre>";
+        // var_dump($this->instructions[60]);
+        // echo "</pre>";
         foreach ($this->instructions as $instruct_id => $instruction) {
             $zahlungen = [];
             $extern_ids = [];
@@ -109,7 +109,7 @@ class BookingTableManager extends Renderer
             foreach ($zahlungen as $type => $z) {
                 $where[] = ['id' => ['IN', $z], 'konto_id' => $type];
             }
-            //titel_id, kostenstelle, zahlung_id, beleg_id, user_id, comment, value
+            // titel_id, kostenstelle, zahlung_id, beleg_id, user_id, comment, value
             $zahlungenDB[$instruct_id] = DBConnector::getInstance()->dbFetchAll(
                 'konto',
                 [DBConnector::FETCH_ASSOC],
@@ -219,11 +219,11 @@ class BookingTableManager extends Renderer
             } else {
                 $extern = [];
             }
-            //var_dump($auslagen_ids);
+            // var_dump($auslagen_ids);
             $belegeDB[$instruct_id] = array_merge($auslagen, $extern);
-            //echo "<pre>";
-            //var_dump($belegeDB[$instruct_id]);
-            //echo "</pre>";
+            // echo "<pre>";
+            // var_dump($belegeDB[$instruct_id]);
+            // echo "</pre>";
             usort(
                 $belegeDB[$instruct_id],
                 static function ($a, $b) {
@@ -231,8 +231,8 @@ class BookingTableManager extends Renderer
                 }
             );
 
-            //$belegeDB[$instruct_id] = array_reverse($belegeDB[$instruct_id]); //FIXME DELETEME
-            //$zahlungenDB[$instruct_id] = array_reverse($zahlungenDB[$instruct_id]); //FIXME DELETEME
+            // $belegeDB[$instruct_id] = array_reverse($belegeDB[$instruct_id]); //FIXME DELETEME
+            // $zahlungenDB[$instruct_id] = array_reverse($zahlungenDB[$instruct_id]); //FIXME DELETEME
         }
 
         $this->zahlungDB = $zahlungenDB;
@@ -336,15 +336,15 @@ class BookingTableManager extends Renderer
     public function run(): void
     {
         foreach ($this->instructions as $instruction_id => $someNotUsedValue) {
-            $this->nextInstruction($instruction_id); //set
+            $this->nextInstruction($instruction_id); // set
             $zAll = $this->zahlungDB[$instruction_id];
             $bAll = $this->belegeDB[$instruction_id];
             foreach ($zAll as $z_key => $z) {
                 $zVal = round((float) $z['value'], 2);
-                //echo "Z".$zVal;
+                // echo "Z".$zVal;
                 foreach ($bAll as $b_key => $b) {
                     $bVal = round((float) $b['value'], 2);
-                    //echo "B".$bVal;
+                    // echo "B".$bVal;
                     if ($bVal === $zVal) {
                         $this->processLine($z, $b, $bVal);
                         unset($bAll[$b_key], $zAll[$z_key]);
@@ -388,7 +388,7 @@ class BookingTableManager extends Renderer
                             $this->processLine($z, $b, $zVal - $zValDone);
                             $bValDone = round($bValDone + $zVal - $zValDone, 2);
                             $zValDone = 0;
-                            break; //next Zahlung
+                            break; // next Zahlung
                         }
                     }
                 }

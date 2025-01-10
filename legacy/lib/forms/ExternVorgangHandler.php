@@ -88,7 +88,7 @@ class ExternVorgangHandler extends FormHandlerInterface
                 break;
         }
         $newEtag = Str::random(32);
-        //TODO: also Version number tracking?
+        // TODO: also Version number tracking?
         DBConnector::getInstance()->dbUpdate(
             'extern_data',
             ['id' => $this->id, 'etag' => $etag],
@@ -106,13 +106,13 @@ class ExternVorgangHandler extends FormHandlerInterface
 
     public function state_change_possible($nextState)
     {
-        //FIXME
+        // FIXME
         return true;
     }
 
     public function getStateString()
     {
-        //FIXME
+        // FIXME
         return 'I have no fucking state';
     }
 
@@ -148,7 +148,7 @@ class ExternVorgangHandler extends FormHandlerInterface
     private function post_pdf_zahlungsanweisung($modal = false): void
     {
         $details = [];
-        //var_dump($this->auslagen_data["belege"]);
+        // var_dump($this->auslagen_data["belege"]);
         $einnahme = 0;
         $ausgabe = 0;
         switch ('1') {
@@ -190,7 +190,7 @@ class ExternVorgangHandler extends FormHandlerInterface
             'auslage-name' => $name,
 
             'zahlung-name' => $this->meta_data['zahlung_empf'],
-            'zahlung-iban' => $this->meta_data['zahlung_iban'], //TODO: de- and encryprion
+            'zahlung-iban' => $this->meta_data['zahlung_iban'], // TODO: de- and encryprion
             'zahlung-value' => ($einnahme - $ausgabe),
             'zahlung-adresse' => $this->meta_data['org_address'],
             'angewiesen-date' => $this->data['date'],
@@ -208,7 +208,7 @@ class ExternVorgangHandler extends FormHandlerInterface
                         'subtype' => 'file',
                         'container' => 'object',
                         'headline' =>
-                        //direct link
+                        // direct link
                             '<form method="POST" action="'.URIBASE.'index.php'.$this->routeInfo['path'].'"><a '.
                             '" href="#" class="modal-form-fallback-submit text-white">'.
                             'Zahlungsanweisung-E'.

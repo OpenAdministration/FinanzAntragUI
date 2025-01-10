@@ -10,7 +10,7 @@ class LoginTest extends DuskTestCase
     /**
      * A Dusk test example.
      */
-    public function testExample(): void
+    public function test_example(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs('user')

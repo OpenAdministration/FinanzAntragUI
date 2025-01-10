@@ -2,14 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Models\Actor;
+use App\Models\ActorMail;
+use App\Models\ActorPhone;
+use App\Models\ActorSocial;
+use App\Models\Legacy\BankAccount;
+use App\Models\Legacy\BankTransaction;
 use Illuminate\Database\Seeder;
 
-class LegacySeeder extends Seeder
+class DemoSeeder extends Seeder
 {
     public function run()
     {
+        $startDate = now()->dayOfYear(1);
         \DB::table('haushaltsplan')->insert([
-            'von' => now()->dayOfYear(1)->format('Y-m-d'),
+            'von' => $startDate->format('Y-m-d'),
             'bis' => now()->lastOfYear()->format('Y-m-d'),
             'state' => 'final',
         ]);
@@ -83,13 +90,48 @@ class LegacySeeder extends Seeder
             ],
         ]);
 
-        \DB::table('konto_type')->insert([
+        BankAccount::factory()->state([
             'name' => 'Cash',
             'short' => 'C',
-        ]);
+            'manually_enterable' => true,
+        ])->has(
+            BankTransaction::factory()->continuous(10, now())
+        )->create();
+
+        BankAccount::factory()->state([
+            'name' => 'Bank 1',
+            'short' => 'B',
+        ])->has(
+            BankTransaction::factory()->continuous(10, now())
+        )->create();
+
+        BankAccount::factory()->state([
+            'name' => 'Bank 2',
+            'short' => 'T',
+        ])->has(
+            BankTransaction::factory()->continuous(10, now())
+        )->create();
+
+        BankAccount::factory()->state([
+            'name' => 'Bank empty',
+            'short' => 'E',
+        ])->create();
+
+        Actor::factory()->count(10)->asOrganisation()
+            ->has(ActorMail::factory()->count(2))
+            ->has(ActorPhone::factory()->count(2))
+            ->has(ActorSocial::factory()->count(3))
+            ->create();
+
+        Actor::factory()->count(2)
+            ->has(ActorMail::factory()->count(2))
+            ->has(ActorPhone::factory()->count(2))
+            ->create();
+
         // insert does not take 0 as id
-        \DB::table('konto_type')->where('short', '=', 'C')->update([
-            'id' => 0,
-        ]);
+        // \DB::table('konto_type')->where('short', '=', 'C')->update([
+        //    'id' => 0,
+        // ]);
+
     }
 }

@@ -20,7 +20,7 @@ class AuthController
 
     public function callback(Request $request): RedirectResponse
     {
-        if (Auth::guest()) {
+        if (Auth::guest() && ! \App::runningUnitTests()) {
             [$identifiers, $userAttributes] = $this->authService->userFromCallback($request);
 
             $user = User::updateOrCreate($identifiers, $userAttributes);

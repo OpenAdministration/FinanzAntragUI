@@ -26,17 +26,17 @@ class HibiscusXMLRPCConnector extends Singleton
 
     private $lastFetchedKontos;
 
-    //private $xmlClient;
+    // private $xmlClient;
 
     protected function __construct()
     {
-        //remove trailing slashes from URL
+        // remove trailing slashes from URL
         if (self::$HIBISCUS_BASE_URL[strlen(self::$HIBISCUS_BASE_URL) - 1] === '/') {
             self::$HIBISCUS_BASE_URL = substr(self::$HIBISCUS_BASE_URL, 0, -1);
         }
-        //DELETEME for new client
+        // DELETEME for new client
         self::$HIBISCUS_BASE_URL .= self::$HIBISCUS_RPCPATH;
-        //DELETEME END
+        // DELETEME END
         $this->fetchableKontos = [];
         $this->lastFetchedKontos = [];
         /*$xmlClient = new \xmlrpc\xrpcClient(
@@ -87,12 +87,12 @@ class HibiscusXMLRPCConnector extends Singleton
             );
 
             foreach ($ktos as $kto) {
-                //available keys: saldo_available, bezeichnung, saldo, unterkonto, blz, kundennummer, kontonummer, iban,
+                // available keys: saldo_available, bezeichnung, saldo, unterkonto, blz, kundennummer, kontonummer, iban,
                 // name, waehrung, saldo_datum, id, bic, kommentar
                 $ktoId = $kto['id'];
                 $ktoName = $kto['bezeichnung'];
                 $ktoIBAN = $kto['iban'];
-                $syncFrom = date_create('@0'); //frist Timestamp available
+                $syncFrom = date_create('@0'); // frist Timestamp available
                 foreach ($dbKtos as $dbKto) {
                     if ($ktoIBAN === $dbKto['iban'] && date_create($dbKto['sync_until'])->diff($syncFrom)->invert) {
                         $syncFrom = date_create($dbKto['sync_until'])->add(DateInterval::createFromDateString('1 day'));
@@ -139,7 +139,7 @@ class HibiscusXMLRPCConnector extends Singleton
                 }
             }
 
-            //get Updated dbKtos
+            // get Updated dbKtos
             $dbKtos = DBConnector::getInstance()->dbFetchAll(
                 'konto_type',
                 [DBConnector::FETCH_UNIQUE_FIRST_COL_AS_KEY]

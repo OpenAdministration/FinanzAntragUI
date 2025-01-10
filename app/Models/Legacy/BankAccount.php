@@ -3,7 +3,9 @@
 namespace App\Models\Legacy;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
@@ -32,10 +34,20 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder|BankAccount whereSyncFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BankAccount whereSyncUntil($value)
  *
+ * @property int $manually_enterable
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Legacy\BankTransaction> $bankTransactions
+ * @property-read int|null $bank_transactions_count
+ *
+ * @method static \Database\Factories\Legacy\BankAccountFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|BankAccount whereCsvImportSettings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BankAccount whereManuallyEnterable($value)
+ *
  * @mixin \Eloquent
  */
 class BankAccount extends Model
 {
+    use HasFactory;
+
     public $timestamps = false;
 
     /**
@@ -64,11 +76,8 @@ class BankAccount extends Model
         );
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function kontoTransactions()
+    public function bankTransactions(): HasMany
     {
-        return $this->hasMany('App\Models\Legacy\BankTransaction', 'konto_id');
+        return $this->hasMany(BankTransaction::class, 'konto_id');
     }
 }

@@ -60,7 +60,7 @@ class FlickerGenerator
         $hex .= $this->de1->toHex();
         $hex .= $this->de2->toHex();
         $hex .= $this->de3->toHex();
-        //var_dump(implode('|', str_split($hex, 2)));
+        // var_dump(implode('|', str_split($hex, 2)));
         $lc = strlen($hex) / 2 + 1;
         $lc = str_pad(base_convert($lc, 10, 16), 2, '0', STR_PAD_LEFT);
 

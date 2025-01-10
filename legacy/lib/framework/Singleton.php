@@ -31,12 +31,12 @@ abstract class Singleton
 
     final public function __clone()
     {
-        //No cloning possible
+        // No cloning possible
     }
 
     final public function __debugInfo()
     {
-        //No debug Info
+        // No debug Info
         return null;
     }
 }

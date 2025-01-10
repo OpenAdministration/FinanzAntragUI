@@ -12,14 +12,18 @@
         "defuse/php-encryption": "^2.3",
         "globalcitizen/php-iban": "^4.2",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/validation": "^4.4",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
-        "livewire/livewire": "^3.0",
+        "livewire/flux": "^1.0",
+        "livewire/flux-pro": "^1.0",
+        "livewire/livewire": "^v3.5",
         "maatwebsite/excel": "^3.1",
         "meyfa/php-svg": "^0.11.3",
         "nemiah/php-fints": "dev-master",
         "open-administration/php-latex-renderer": "^1.1",
         "owenvoke/blade-fontawesome": "^2.6",
+        "propaganistas/laravel-phone": "^5.3",
         "socialiteproviders/keycloak": "^5.2",
         "socialiteproviders/laravelpassport": "^4.3",
         "spatie/laravel-backup": "^8.6",
@@ -29,13 +33,15 @@
         "barryvdh/laravel-debugbar": "^3.12",
         "barryvdh/laravel-ide-helper": "^2.13",
         "fakerphp/faker": "^1.9.1",
-        "laravel/browser-kit-testing": "^6.4",
-        "laravel/dusk": "^8.2",
+        "laravel/pint": "^1.17",
         "laravel/sail": "^1.0.1",
         "laravel/tinker": "^2.7",
+        "magentron/laravel-blade-lint": "^2.0",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10",
+        "nunomaduro/collision": "^v7.0",
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-laravel": "^2.4",
+        "pestphp/pest-plugin-livewire": "^2.1",
         "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^2.0"
     },
@@ -87,5 +93,11 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "flux-pro": {
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        }
+    }
 }

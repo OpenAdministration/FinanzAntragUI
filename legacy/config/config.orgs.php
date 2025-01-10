@@ -369,17 +369,17 @@ return [
                 'label' => 'StuRa-Beschluss',
                 'label-additional' => 'Datum und TOP',
                 'placeholder' => '',
-                //'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
+                // 'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
             ],
             'stura-vorstand' => [
                 'label' => 'StuRa Vorstandsbeschluss',
                 'label-additional' => 'Datum und TOP',
-                //'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
+                // 'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
             ],
             'fsr' => [
                 'label' => 'FSR Beschluss',
                 'label-additional' => 'Datum und TOP',
-                //'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
+                // 'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
             ],
             'mittel' => [
                 'label' => 'Antrag auf Mittelfreigabe',
@@ -387,11 +387,11 @@ return [
             ],
             'vertrag' => [
                 'label' => 'Verträge',
-                //'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
+                // 'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
             ],
             'ordnung' => [
                 'label' => 'Ordnungen oder Satzung',
-                //'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
+                // 'hint-text' => 'Hier ist Platz für einen hilfreichen Text.',
             ],
         ],
         'projekt-form' => [
