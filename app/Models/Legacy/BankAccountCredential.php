@@ -4,6 +4,7 @@ namespace App\Models\Legacy;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Legacy\KontoCredential
@@ -42,18 +43,12 @@ class BankAccountCredential extends Model
      */
     protected $fillable = ['bank_id', 'owner_id', 'name', 'bank_username', 'tan_mode', 'tan_medium_name', 'tan_mode_name'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function kontoBank()
+    public function kontoBank(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Legacy\Bank::class, 'bank_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'owner_id');
     }

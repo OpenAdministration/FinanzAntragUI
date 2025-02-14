@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Legacy\Project
@@ -88,34 +90,22 @@ class Project extends Model
         'updating' => UpdatingModel::class,
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function expenses()
+    public function expenses(): HasMany
     {
         return $this->hasMany(\App\Models\Legacy\Expenses::class, 'projekt_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function creator()
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'creator_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function stateCreator()
+    public function stateCreator(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'stateCreator_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(ProjectPost::class, 'projekt_id');
     }

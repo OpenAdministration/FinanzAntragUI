@@ -3,6 +3,7 @@
 namespace App\Models\Legacy;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Legacy\ProjectPost
@@ -46,10 +47,7 @@ class ProjectPost extends Model
      */
     protected $fillable = ['titel_id', 'einnahmen', 'ausgaben', 'name', 'bemerkung'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class, 'projekt_id');
     }

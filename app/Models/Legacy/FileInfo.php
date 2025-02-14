@@ -3,6 +3,7 @@
 namespace App\Models\Legacy;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Legacy\FileInfo
@@ -52,10 +53,7 @@ class FileInfo extends Model
      */
     protected $fillable = ['data', 'link', 'added_on', 'hashname', 'filename', 'size', 'fileextension', 'mime', 'encoding'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function fileData()
+    public function fileData(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Legacy\FileData::class, 'data');
     }

@@ -49,12 +49,14 @@ class BudgetPlan extends Model
      */
     protected $fillable = ['resolution_date', 'approval_date', 'state', 'parent_plan'];
 
-    protected $casts = [
-        'state' => BudgetPlanState::class,
-        'resolution_date' => 'date',
-        'approval_date' => 'date',
-
-    ];
+    protected function casts(): array
+    {
+        return [
+            'state' => BudgetPlanState::class,
+            'resolution_date' => 'date',
+            'approval_date' => 'date',
+        ];
+    }
 
     public function budgetItems(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

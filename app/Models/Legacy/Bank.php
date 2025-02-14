@@ -3,6 +3,7 @@
 namespace App\Models\Legacy;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Legacy\Bank
@@ -41,10 +42,7 @@ class Bank extends Model
      */
     protected $fillable = ['url', 'blz', 'name'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function kontoCredentials()
+    public function kontoCredentials(): HasMany
     {
         return $this->hasMany(BankAccountCredential::class, 'bank_id');
     }

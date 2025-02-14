@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('fiscal_year', function (Blueprint $table) {
             $table->id();
@@ -47,7 +47,7 @@ return new class extends Migration
         // TODO: nachtragshhp auch noch hier rein :)
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('budget_item', static function (Blueprint $table) {
             $table->dropForeign(['budget_plan_id']);

@@ -64,15 +64,18 @@ class BankTransaction extends Model
 
     public $timestamps = false;
 
-    protected $casts = [
-        'date' => 'date',
-        'valuta' => 'date',
-    ];
-
     /**
      * @var array
      */
     protected $fillable = ['date', 'valuta', 'type', 'empf_iban', 'empf_bic', 'empf_name', 'primanota', 'value', 'saldo', 'zweck', 'comment', 'customer_ref'];
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+            'valuta' => 'date',
+        ];
+    }
 
     public function account(): BelongsTo
     {

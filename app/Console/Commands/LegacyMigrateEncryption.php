@@ -29,7 +29,7 @@ class LegacyMigrateEncryption extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         if (! isset($_ENV['CHAT_PRIVATE_KEY'], $_ENV['CHAT_PUBLIC_KEY'], $_ENV['IBAN_SECRET_KEY'])) {
             $this->error('Please set chat private key and public key / IBAN_SECRET_KEY');

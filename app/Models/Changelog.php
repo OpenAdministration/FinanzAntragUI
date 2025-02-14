@@ -48,11 +48,14 @@ class Changelog extends Model
     protected $fillable = ['user_id', 'type', 'type_id', 'previous_data'];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'previous_data' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'previous_data' => 'array',
+        ];
+    }
 }

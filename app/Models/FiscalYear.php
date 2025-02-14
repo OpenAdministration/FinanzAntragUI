@@ -21,10 +21,13 @@ class FiscalYear extends Model
      */
     protected $fillable = ['start_date', 'end_date'];
 
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'date',
+            'end_date' => 'date',
+        ];
+    }
 
     public function budgetPlans(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
